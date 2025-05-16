@@ -1,0 +1,1197 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#wrapper{
+    background-color: #FFF8DE;
+    width: 100%;
+    height: 100%;
+    /* max-height: 100%; */
+}
+
+#header{
+    background-color: #FFE785;
+    width: 100%;
+    height: 100px;
+    border-bottom: 4px solid black;
+}
+
+#header #searchPanel{
+    /* background-color: aqua; */
+    width: 530px;
+    height: 50px;
+    margin-top: 30px;
+    margin-left: 30px;
+    float: left;
+}
+
+.textfield{
+    width: 80%;
+    height: 42px;
+    font-size: 28px;
+    border-radius: 15px;
+    border: 4px solid black;
+    background-color: #FFF8DE;
+    float: left;
+    padding: 0px 8px;
+}
+
+#searchPanel .button{
+    width: 15%;
+    height: 50px;
+    font-size: 28px;
+    border-radius: 15px;
+    border: 4px solid black;
+    background-color: #FFF8DE;
+    float: right;
+    /* padding: 5px; */
+    /* margin-left: 5px; */
+}
+
+#searchPanel .button:hover{
+    cursor: pointer;
+}
+
+#header #unSignedProfilePanel{
+    /* background-color: aqua;*/
+    width: 400px;
+    height: 50px;
+    margin-top: 30px;
+    margin-right: 30px;
+    float: right;
+}
+
+#header #signedProfilePanel{
+    /* background-color: aqua; */
+    display: none;
+    width: 400px;
+    height: 50px;
+    margin-top: 30px;
+    margin-right: 30px;
+    float: right;
+}
+
+#header #signedProfilePanel #userIcon{
+    float: right;
+    background-color: aquamarine;
+    border: 4px solid black;
+    width: 25px;
+    height: 25px;
+    border-radius: 90px;
+    padding: 10px;
+    margin: 0px 20px;
+    display: inline-block;
+    text-align: center;
+}
+
+#header #signedProfilePanel button{
+    float: right;
+    display: inline-block;
+    
+    margin: 18px 20px;
+    font-size: 20px;
+    border: none;
+    background-color: #FFE785;
+}
+
+#header #signedProfilePanel #usernameHeader{
+    max-width: 130px;
+    overflow: hidden;
+}
+
+#header #signedProfilePanel button:hover{
+    cursor: pointer;
+}
+
+#header #signedProfilePanel #dropdown-content{
+    /* float: right; */
+
+    display: none;
+    position: absolute;
+    top: 80px;
+    right: 40px;
+    min-width: 80px;
+    background-color: #FFF8DE;
+    /* z-index: 1; */
+    border-radius: 5px;
+}
+
+#header #signedProfilePanel #dropdown-content a{
+    /* float: right; */
+    /* text-align: center; */
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+#header #signedProfilePanel #dropdown-content a:hover{
+    background-color: #FFE785;
+}
+
+#header #unSignedProfilePanel a{
+    background-color: #5560FF;
+    width: auto;
+    height: 42px;
+    border: 4px solid black;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 26px;
+    color: white;
+    float: right;
+    text-align: center;
+    padding: 8px 8px 0px 8px;
+}
+
+#header h1{
+    padding-left: 60px;
+    padding-top: 25px;
+    float: left;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#header a{
+    text-decoration: none;
+    padding-left: 25px;
+    padding-top: 40px;
+    float: left;
+    font-size: 30px;
+    font-weight: 500;
+    display: inline-block;
+    color: black;
+}
+
+#header a:hover{
+    cursor: pointer;
+    color: #5560FF;
+}
+
+
+#content{
+    background-color: #FFF8DE;
+    height: 100%;
+    min-height: 370px;
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+#footer{
+    background-color: #FFE785;
+    height: 170px;
+    border-top: 4px solid black;
+}
+
+#footer h1{
+    width: 20%;
+    height: 100px;
+    float: left;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    padding-top: 60px;
+}
+
+#footer p{
+    width: 60%;
+    height: 100px;
+    float: left;
+    padding-top: 70px;
+    font-weight: 100;
+    font-size: 18px;
+}
+
+#footer #social{
+    /* background-color: aqua; */
+    width: 15%;
+    height: 100px;
+    float: right;
+    padding-top: 70px;
+}
+
+#social a, #social img{
+    border-radius: 90px;
+    height: 50px;
+    width: 50px;
+    margin: 0px 10px;
+}
+
+/* ---------------------------------------------- Sign in div */
+#centre{
+    /* background-color: #5560FF; */
+    margin-top: 100px;
+    margin: auto;
+    width: max-content;
+    height: 100%;
+}
+
+#centre h1{
+    /* padding-top: 20px; */
+}
+
+#centre form{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 30px 70px;
+    margin-top: 30px;
+    border: 4px solid black;
+    border-radius: 15px;
+    background-color: #FFE785;
+    width: 522px;
+    height: max-content;
+}
+
+form label{
+    font-size: 28px;
+    display: inline-block;
+}
+
+form h2{
+    margin: 15px 0px;
+    margin-right: 30px;
+    display: inline-block;
+}
+
+form a{
+    /* margin-left: 100px; */
+    margin: auto;
+    font-size: 20px;
+}
+
+/* how to inherit from textfield */
+.signintextfield{ 
+    margin:15px 0px; /* margin auto did not centre this field */
+    width: 98%;
+    padding: 0px 5px;
+    height: 42px;
+    font-size: 28px;
+    border-radius: 15px;
+    border: 4px solid black;
+    background-color: #FFF8DE;
+}
+
+.savePass{
+    margin-right: 10px;
+}
+
+.signinbutton{
+    margin:15px 0px; /* margin auto did not centre this field */
+    padding: 10px 0px;
+    width: 100%;
+    /* height: 42px; */
+    font-size: 24px;
+    border-radius: 15px;
+    border: 4px solid black;
+    background-color: #5560FF;
+    color: white;
+}
+
+.signinbutton:hover{
+    background-color: blue;
+    cursor: pointer;
+}
+
+/* ---------------------------------------------- Home Page */
+#feature{
+    /* background-color: aqua; */
+    width: 1250px;
+    height: 700px;
+}
+
+#bigImage{
+    /* background-color: aquamarine; */
+    width: 80%;
+    height: 600px;
+    float: left;
+    background-image: url(../../Images/RainWorld/Sp1.png);
+    background-size: 1000px 600px;        
+    border-radius: 15px;
+}
+
+#bigImage .funcButton{
+    border-radius: 15px;
+    background-color: white;
+    padding: 15px 25px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 450px;
+    margin-left: 80px;
+}
+
+#bigImage .funcButton#add{
+    margin-left: 40px;
+    opacity: 70%;
+}
+
+#bigImage .funcButton#add:hover{
+    opacity: 90%;
+    cursor: pointer;
+}
+
+#bigImage .funcButton#buy:hover{
+    opacity: 90%;
+    cursor: pointer;
+}
+
+#featureItemList{
+    /* background-color: azure; */
+    width: 15%;
+    height: 600px;
+    float: right;
+}
+
+.featureItem{
+    /* background-color: bisque; */
+    border-radius: 15px;
+    width: 100%;
+    height: 100px;
+    margin-bottom: 25px;
+}
+
+.featureItem:hover{
+    background-color: #FFE785;
+    cursor: pointer;
+}
+
+.featureItem img{
+    border-radius: 15px;
+    width: 80px;
+    height: inherit;
+    float: left;
+}
+
+.featureItem h2{
+    /* background-color: aqua; */
+    padding-top: 15px;
+    padding-left: 5px;
+    width: 54%;
+    height: inherit;
+    float: right;
+}
+
+#bestSeller{
+    /* background-color: aqua; */
+    width: 1250px;
+    height: 700px;
+    margin-top: 40px;
+    padding-bottom: 40px;
+}
+
+.smallGameCard{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    float: left;
+    background-color: #FFE785;
+    width: 200px;
+    height: 290px;
+    /* border: 4px solid black; */
+    outline: 4px solid black;
+    border-radius: 15px;
+    margin: 25px;
+}
+
+.smallGameCard:hover{
+    /* transform: translate(10px, 10px); */
+    transform: scale(1.1,1.1);
+    cursor: pointer;
+}
+
+.smallGameCard img{
+    border-radius: 15px;
+    width: 200px;
+    height: 200px;
+    outline: 4px solid black;
+}
+
+.smallGameCard h2, .smallGameCard h3{
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+.mediumGameCard{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    float: left;
+    background-color: #FFE785;
+    width: 366px;
+    height: 290px;
+    /* border: 4px solid black; */
+    outline: 4px solid black;
+    border-radius: 15px;
+    margin: 25px;
+}
+
+.mediumGameCard:hover{
+    transform: scale(1.1,1.1);
+    cursor: pointer;
+}
+
+.mediumGameCard img{
+    border-radius: 15px;
+    width: 366px;
+    height: 200px;
+    outline: 4px solid black;
+}
+
+.mediumGameCard h2, .mediumGameCard h3, .mediumGameCard p{
+    padding-left: 10px;
+    padding-top: 3px;
+}
+
+.genresCard{
+    float: left;
+    width: 200px;
+    height: 200px;
+    /* border: 4px solid black; */
+    background-image: url("../../Images/RainWorld/Logo.png");
+    background-size: 200px 200px;
+    outline: 4px solid black;
+    border-radius: 15px;
+    margin: 25px;
+}
+
+.genresCard:hover{
+    transform: scale(1.1,1.1);
+    cursor: pointer;
+}
+
+.genresCard div{
+    margin: auto;
+    margin-top: 80px;
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 15px;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+}
+
+.genresCard h2{
+    /* text-align: center; */
+}
+
+#popular{
+    /* background-color: aqua; */
+    width: 1250px;
+    height: 400px;
+    margin-top: 40px;
+    padding-bottom: 40px;
+}
+
+#popular a{
+    text-align: right;
+    display: block;
+}
+
+#genres{
+    /* background-color: aqua; */
+    width: 1250px;
+    height: 400px;
+    margin-top: 40px;
+    padding-bottom: 40px;
+}
+
+#genres a{
+    text-align: right;
+    display: block;
+}
+
+/* --------------------------------------------- Browse Page */
+#browseList{
+    /* background-color: aqua; */
+    width: 1250px;
+    height: 100%;
+}
+
+#browseList .browseListRow{
+    width: 1250px;
+    height: 340px;
+}
+
+#searchDetail{
+    /* background-color: aqua; */
+    width: 1250px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+#searchDetail #context{
+    float: left;
+    /* background-color: aquamarine; */
+    width: 75%;
+    height: inherit;
+}
+
+#searchDetail #funcButton{
+    float: right;
+    /* background-color: beige; */
+    width: 120px;
+    height: 80%;
+    margin: 15px;
+    text-align: center;
+}
+
+#funcButton label{
+    font-size: 24px;
+    border-radius: 15px;
+    background-color: #FFE785;
+    padding: 5px;
+}
+
+#funcButton select{
+    border-radius: 15px;
+    border: 4px solid black;
+    background-color: #FFE785;
+    font-size: 18px;
+}
+
+#changePage{
+    /* background-color: aquamarine; */
+    width: max-content;
+    height: 50px;
+    margin: auto;
+    font-size: 24px;
+}
+
+#changePage h5,a{
+    display: inline-block;
+    margin: 0px 3px;
+}
+
+
+/* ---------------------------------------------- Item detail page */
+#leftPanel{
+    margin-top: 20px;
+    /* float: left; */
+    /* background-color: aqua; */
+    width: 770px;
+    height: 100%;
+    margin-left: 145px;
+    display: inline-block;
+}
+
+#leftPanel h1{
+
+}
+
+#leftPanel img{
+    width: inherit;
+    height: 400px;
+    border-radius: 15px;
+}
+
+#leftPanel #imgSlider{
+    margin-top: 10px;
+    /* background-color: beige; */
+    width: inherit;
+    height: 100px;
+}
+
+#imgSlider img{
+    border-radius: 15px;
+    height: inherit;
+    width: 140px;
+    margin-left: 8px;
+    margin-right: 6px;
+}
+
+#imgSlider img:hover{
+    outline: 4px solid #5560FF;
+    cursor: pointer;
+}
+
+#imgSlider #sliderF{
+    margin-left: 0px;
+    margin-right: 6px;
+}
+
+#imgSlider #sliderL{
+    margin-left: 6px;
+    margin-right: 0px;
+}
+
+#leftPanel #genresTag{
+    margin-top: 40px;
+    /* background-color: beige; */
+    width: inherit;
+    height: 100%;
+}
+
+#genresTag h3{
+    border-radius: 15px;
+    padding: 5px;
+    background-color: #FFE785;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#leftPanel #about{
+    margin-top: 40px;
+    /* background-color: beige; */
+    width: inherit;
+    height: 100%;
+}
+
+#about p{
+    font-size: 20px;
+}
+
+#leftPanel #requirement{
+    outline: 4px solid black;
+    border-radius: 15px;
+    margin-top: 30px;
+    background-color: #FFE785;
+    width: inherit;
+    height: 100%;
+    /* max-height: 100%; */
+}
+
+#requirement .floatSide{
+    /* float: left; */
+    margin-top: 30px;
+    width: 90%;
+    height: inherit;
+    padding: 40px 20px;
+    margin-left: 10px;
+}
+
+.floatSide h2{
+    /* font-weight: 100; */
+    margin: 30px 0px;
+}
+
+#rightPanel{
+    margin-top: 75px;
+    float: right;
+    /* background-color: aqua; */
+    width: 370px;
+    height: 100%;
+    margin-right: 145px;
+}
+
+#rightPanel img{
+    border-radius: 15px;
+    width: inherit;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+#rightPanel .itemTitle{
+    float: left;
+    /* background-color: beige; */
+    width: 50%;
+    height: 25px;
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+#rightPanel .itemData{
+    float: right;
+    /* background-color: bisque; */
+    width: 50%;
+    height: 25px;
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+#rightPanel #priceTag{
+    margin: 50px 0px;
+    border-radius: 15px;
+    background-color: #FFE785;
+    padding: 10px;
+    display: inline-block;
+}
+
+.itemTitle h4{
+    text-align: left;
+} 
+.itemData h4{
+    text-align: right;
+}
+
+.signinbutton#addToCart, .signinbutton#addToWishlist{
+    color: black;
+    background-color: #FFE785;
+}
+
+.signinbutton#addToCart:hover, .signinbutton#addToWishlist:hover{
+    color: black;
+    background-color: #ffe800;
+}
+
+/* -------------------------------------------- UserProfilePage */
+.centre{
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 1000px;
+    height: 100%;
+    border-radius: 15px;
+    background-color: #FFE785;
+    padding: 20px 50px;
+}
+
+.centre label{
+    font-size: 30px;
+    margin-left: 40px;
+    margin-top: 25px;
+}
+
+.centre .datafield{
+    background-color: #FFF8DE;
+    border-radius: 15px;
+    outline: 4px solid black;
+    width: 400px;
+    height: 50px;
+    font-size: 28px;
+    margin-left: 40px;
+    margin-top: 15px;
+}
+
+.centre .leftPart{
+    width: 50%;
+    /* float: left; */
+    display: inline-block;
+}
+
+.centre .rightPart{
+    width: 49%;
+    float: right;
+    display: inline-block;
+}
+
+.centre .leftPart#pass{
+    float: left;
+}
+
+.centre .rightPart#pass{
+    float: none;
+}
+
+.centre .signinbutton{
+    width: 80%;
+    margin-left: 70px;
+    margin-top: 30px;
+}
+
+.signinbutton#saveProfile{
+    float: right;
+    width: 30%;
+}
+
+/* --------------------------------------------------- Wishlist Page */
+.centrebox{
+    margin: auto; 
+    width: 1070px;
+}
+
+.boxfield{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 4px solid black;
+    border-radius: 15px;
+    height: 100%;
+    padding: 15px;
+    width: inherit;
+}
+
+.boxfield legend{
+    font-size: 26px;
+    margin-left: 20px;
+}
+
+.wishlistGameCard{
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    width: 95%;
+    height: 180px;
+    background-color: #FFE785;
+    
+}
+
+.wishlistGameCard .imgDiv{
+    float: left;
+    /* background-color: aliceblue; */
+    width: 25%;
+    height: inherit;
+    display: inline-block;
+}
+
+.imgDiv img{
+    margin: 10px 0px;
+    margin-left: 10px;
+    border-radius: 15px;
+    width: 95%;
+    height: 160px;
+}
+
+.wishlistGameCard .contextDiv{
+    float: left;
+    /* background-color: aqua; */
+    width: 45%;
+    height: inherit;
+    display: inline-block;
+    
+}
+
+.contextDiv h1{
+    margin-top: 60px;
+    margin-left: 15px;
+} 
+
+.contextDiv h4{
+    margin-left: 15px;
+    
+}
+
+.wishlistGameCard .functionDiv{
+    float: left;
+    /* background-color: aliceblue; */
+    width: 29%;
+    height: inherit;
+    display: inline-block;
+}
+
+.functionDiv .removeButton{
+    float: right;
+    border: none;
+    background-color: #FFE785;
+    /* padding: 15px; */
+    margin-top: 15px;
+    margin-right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.functionDiv h1{
+    /* float: right; */
+    margin-left: 70px;
+    margin-top: 7px;
+}
+
+.functionDiv .addButton{
+    float: right;
+    border: none;
+    background-color: #5560FF;
+    border-radius: 15px;
+    color: white;
+    padding: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.functionDiv .addButton:hover{
+    background-color: blue;
+}
+
+/* ----------------------------------------------------------- Cart Page */
+
+.leftCart{
+    height: 100%;
+    width: 770px;
+    margin-left: 130px;
+    display: inline-block;
+}
+
+.rightCart{
+    float: right;
+    height: 100%;
+    width: 370px;
+    margin-right: 150px;
+    display: inline-block;
+}
+
+.cartGameCard{
+    
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    width: 95%;
+    height: 160px;
+    background-color: #FFE785;   
+}
+
+.cartGameCard img{
+    width: 140px;
+    height: 140px;
+    border-radius: 15px;
+    margin: 10px 0px;
+    margin-left: 10px;
+}
+
+.cartGameCard .cartTextDiv{
+    float: right;
+    width: 75%;
+    height: 100px;
+    /* background-color: bisque; */
+    /* display: inline-block; */
+    margin-top: 50px;
+    margin-right: 20px;
+}
+
+.cartTextDiv h1, .cartTextDiv h4{
+    display: inline-block;
+    margin: 0px 15px;
+}
+
+.cartTextDiv h2{
+    float: right;
+    display: inline-block;
+    margin-right: 50px;
+    margin-top: 12px;
+}
+
+.cartTextDiv .removeButton{
+    float: right;
+    border: none;
+    background-color: #FFE785;
+    margin-top: 15px;
+    margin-right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.rightCart h1{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+
+/* --------------------------------------------------- Payment Page */
+.leftPayment{
+    float: left;
+    border-radius: 15px;
+    background-color: #FFE785;
+    width: 700px;
+    height: 100%;
+    margin-left: 140px;
+    display: inline-block;
+    padding: 20px 50px;
+}
+
+.leftPayment label{
+    /* margin-left: 50px; */
+}
+
+.rightPayment{
+    /* float: right; */
+    height: 100%;
+    width: 370px;
+    margin-left: 70px;
+    /* text-align: center; */
+    display: inline-block;
+}
+
+.paymentGameCard{
+    width: 95%;
+    height: 160px;
+    border-radius: 15px;
+    background-color: #FFE785;
+    margin-bottom: 20px;
+}
+
+.paymentGameCard img{
+    width: 140px;
+    height: 140px;
+    border-radius: 15px;
+    margin: 10px 0px;
+    margin-left: 10px;
+}
+
+.paymentGameCard .rightDiv{
+    display: inline-block;
+    width: 180px;
+    height: 100px;
+    float: right;
+    margin-top: 50px;
+}
+
+/* -------------------------------------------------------------- Library Page */
+
+.libraryGameCard{
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    width: 95%;
+    height: 180px;
+    background-color: #FFE785;
+}
+
+.libraryGameCard .imgDiv{
+    float: left;
+    /* background-color: aliceblue; */
+    width: 25%;
+    height: inherit;
+    display: inline-block;
+}
+
+.imgDiv img{
+    margin: 10px 0px;
+    margin-left: 10px;
+    border-radius: 15px;
+    width: 95%;
+    height: 160px;
+}
+
+.libraryGameCard .contextDiv{
+    float: left;
+    /* background-color: aqua; */
+    width: 43%;
+    height: inherit;
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.libraryGameCard .contextDiv h5{
+    border-radius: 15px;
+    background-color: antiquewhite;
+    padding: 3px 5px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.libraryGameCard .contextDiv h1{
+    margin-left: 0px;
+    margin-top: 60px;
+}
+
+.libraryGameCard .contextDiv h4{
+    margin-left: 0px;
+    margin-top: 5px;
+}
+
+h1.removeButton:hover{
+    cursor: auto;
+}
+
+/* .contextDiv h1{
+    margin-left: 10px;
+}
+
+.contextDiv h4{
+    margin-left: 10px;
+} */
+
+.libraryGameCard .functionDiv{
+    float: left;
+    /* background-color: aliceblue; */
+    width: 29%;
+    height: inherit;
+    display: inline-block;
+}
+
+/* .functionDiv .removeButton{
+    float: right;
+} */
+
+/* .functionDiv h1{
+    float: right;
+} */
+
+/*-------------- Table*/
+.customTable{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.customTable .r1{
+    text-align: left;
+    width: 40%;
+}
+
+.customTable tr{
+    text-align: right;
+}
+
+tr{
+    border-bottom: 1px solid black;
+}
+
+.customTable th{
+    height: 50px;
+}
+
+.customTable td{
+    height: 25px;
+}
+
+
+.userListTable{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.userListTable tr{
+    text-align: left;
+}
+
+.userListTable tr:hover{
+    background-color: #FFF8DE;
+}
+
+.userListTable tr:active{
+    background-color: #FFF8DE;
+}
+
+.userListTable td,.userListTable th{
+    /* height: 50px; */
+    padding: 25px 0px;
+}
+
+.centre .signinbutton{
+    width: max-content;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 10px 10px;
+    border: none;
+}
+
+.centre a{
+    text-decoration: none;
+}
+
+.centre form input{
+    border-radius: 15px;
+    /* height: 28px; */
+}
+
+.centre#billPage h3, .centre#billPage table{
+    margin: 10px 0px;
+}
+
+.centre#billPage h1, .centre#billPage h2{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+form.addUser .addNewTextField{
+    border-radius: 0px;
+    height: 25px;
+    font-size: 20px;
+    padding: 4px 4px;
+    margin-left: 20px;
+}
+
+form.addGame input{
+    border-radius: 0px;
+    height: 25px;
+    font-size: 20px;
+    padding: 4px 4px;
+    margin-left: 20px;
+}
+
+.ellipsis {
+    /* min-width: 100px; */
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+table {
+    border-collapse: separate; /* Important */
+    border-spacing: 20px 10px; /* horizontal and vertical spacing */
+    width: 100%;
+  }

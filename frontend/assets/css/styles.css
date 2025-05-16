@@ -1,0 +1,514 @@
+/* Base styles (already in your CSS) */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* Add viewport-based sizing for wrapper */
+#wrapper {
+  background-color: #fff8de;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Header responsive adjustments */
+#header {
+  background-color: #ffe785;
+  width: 100%;
+  height: auto;
+  min-height: 70px;
+  padding: 15px 0;
+  border-bottom: 4px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#header h1 {
+  padding-left: 20px;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+#header a {
+  text-decoration: none;
+  padding-left: 15px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: black;
+}
+
+#header a:hover {
+  cursor: pointer;
+  color: #5560ff;
+}
+
+/* Search panel responsive */
+#header #searchPanel {
+  width: 100%;
+  max-width: 530px;
+  height: 50px;
+  margin: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.textfield {
+  width: 80%;
+  height: 42px;
+  font-size: 1.2rem;
+  border-radius: 15px;
+  border: 4px solid black;
+  background-color: #fff8de;
+  padding: 0px 8px;
+}
+
+#searchPanel .button {
+  width: 15%;
+  height: 50px;
+  font-size: 1.2rem;
+  border-radius: 15px;
+  border: 4px solid black;
+  background-color: #fff8de;
+}
+
+/* Profile panels responsive */
+#header #unSignedProfilePanel,
+#header #signedProfilePanel {
+  width: 100%;
+  max-width: 400px;
+  height: 50px;
+  margin: 10px 20px;
+}
+
+#header #unSignedProfilePanel a {
+  background-color: #5560ff;
+  height: 42px;
+  border: 4px solid black;
+  border-radius: 15px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: white;
+  text-align: center;
+  padding: 8px 8px 0px 8px;
+  display: inline-block;
+}
+
+/* Content area responsive */
+#content {
+  background-color: #fff8de;
+  min-height: 370px;
+  padding: 40px 20px 80px;
+}
+
+/* Footer responsive */
+#footer {
+  background-color: #ffe785;
+  padding: 20px 0;
+  border-top: 4px solid black;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#footer h1 {
+  width: 100%;
+  max-width: 20%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  padding-top: 20px;
+}
+
+#footer p {
+  width: 100%;
+  max-width: 60%;
+  padding-top: 30px;
+  font-weight: 100;
+  font-size: 1rem;
+}
+
+#footer #social {
+  width: 100%;
+  max-width: 20%;
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+#social a,
+#social img {
+  border-radius: 90px;
+  height: 50px;
+  width: 50px;
+  margin: 0px 10px;
+}
+
+/* Sign in responsive */
+#centre {
+  margin: 30px auto;
+  width: 90%;
+  max-width: 600px;
+}
+
+#centre form {
+  padding: 30px 5%;
+  margin-top: 30px;
+  border: 4px solid black;
+  border-radius: 15px;
+  background-color: #ffe785;
+  width: 90%;
+  max-width: 522px;
+}
+
+form label {
+  font-size: 1.5rem;
+  display: inline-block;
+}
+
+.signintextfield {
+  margin: 15px 0px;
+  width: 98%;
+  padding: 0px 5px;
+  height: 42px;
+  font-size: 1.2rem;
+  border-radius: 15px;
+  border: 4px solid black;
+  background-color: #fff8de;
+}
+
+.signinbutton {
+  margin: 15px 0px;
+  padding: 10px 0px;
+  width: 100%;
+  font-size: 1.2rem;
+  border-radius: 15px;
+  border: 4px solid black;
+  background-color: #5560ff;
+  color: white;
+}
+
+/* Home page responsive */
+#feature,
+#bestSeller,
+#popular,
+#genres {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+#bigImage {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  aspect-ratio: 5 / 3;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+#featureItemList {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.featureItem {
+  border-radius: 15px;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+}
+
+/* Game cards responsive */
+.smallGameCard,
+.mediumGameCard,
+.genresCard {
+  float: none;
+  display: inline-block;
+  margin: 15px;
+  transition: transform 0.3s ease;
+}
+
+.smallGameCard {
+  width: 200px;
+  height: 290px;
+}
+
+.mediumGameCard {
+  width: 100%;
+  max-width: 366px;
+  height: 290px;
+}
+
+/* Browse page responsive */
+#browseList {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+#browseList .browseListRow {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Item detail page responsive */
+#leftPanel,
+#rightPanel {
+  width: 100%;
+  max-width: 770px;
+  margin: 20px auto;
+  float: none;
+  display: block;
+}
+
+#leftPanel img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+#leftPanel #imgSlider {
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+#imgSlider img {
+  height: 80px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* User profile page responsive */
+.centre {
+  width: 90%;
+  max-width: 1000px;
+  padding: 20px 5%;
+}
+
+.centre .leftPart,
+.centre .rightPart {
+  width: 100%;
+  float: none;
+  display: block;
+}
+
+.centre .datafield {
+  width: 90%;
+  max-width: 400px;
+}
+
+/* Wishlist and cart page responsive */
+.centrebox {
+  width: 90%;
+  max-width: 1070px;
+}
+
+.wishlistGameCard,
+.cartGameCard,
+.libraryGameCard,
+.paymentGameCard {
+  width: 95%;
+  height: auto;
+  min-height: 180px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wishlistGameCard .imgDiv,
+.wishlistGameCard .contextDiv,
+.wishlistGameCard .functionDiv {
+  width: 100%;
+}
+
+.leftCart,
+.rightCart,
+.leftPayment,
+.rightPayment {
+  width: 90%;
+  max-width: 770px;
+  margin: 20px auto;
+  float: none;
+  display: block;
+}
+
+/* Tables responsive */
+.customTable,
+.userListTable {
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Small devices (phones, 576px and down) */
+@media only screen and (max-width: 576px) {
+  #header h1 {
+    font-size: 1.8rem;
+    padding-left: 10px;
+  }
+
+  #header a {
+    font-size: 1rem;
+    padding-left: 10px;
+  }
+
+  #header #searchPanel {
+    margin: 10px;
+  }
+
+  .textfield,
+  #searchPanel .button {
+    font-size: 1rem;
+  }
+
+  #footer h1 {
+    font-size: 1.5rem;
+    max-width: 100%;
+  }
+
+  #footer p {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  #footer #social {
+    max-width: 100%;
+  }
+
+  .smallGameCard,
+  .mediumGameCard,
+  .genresCard {
+    margin: 10px auto;
+    display: block;
+  }
+
+  .centre .datafield {
+    font-size: 1.2rem;
+  }
+
+  .wishlistGameCard .imgDiv img {
+    margin: 10px auto;
+    display: block;
+  }
+
+  .wishlistGameCard .contextDiv h1 {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .wishlistGameCard .contextDiv h4 {
+    text-align: center;
+  }
+
+  .wishlistGameCard .functionDiv {
+    text-align: center;
+  }
+
+  .functionDiv .removeButton,
+  .functionDiv .addButton {
+    float: none;
+    margin: 10px auto;
+    display: block;
+  }
+}
+
+/* Medium devices (tablets, 768px and down) */
+@media only screen and (max-width: 768px) {
+  #header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #header h1 {
+    padding: 10px 0;
+  }
+
+  #header a {
+    padding: 5px 10px;
+  }
+
+  #header #searchPanel,
+  #header #unSignedProfilePanel,
+  #header #signedProfilePanel {
+    margin: 10px auto;
+  }
+
+  #bigImage {
+    max-width: 100%;
+  }
+
+  #featureItemList {
+    max-width: 100%;
+  }
+
+  .featureItem {
+    width: 48%;
+    margin: 1%;
+  }
+
+  #leftPanel,
+  #rightPanel {
+    padding: 0 10px;
+  }
+
+  #leftPanel #requirement {
+    height: auto;
+    padding-bottom: 20px;
+  }
+
+  #requirement .floatSide {
+    width: 90%;
+    float: none;
+    margin: 20px auto;
+  }
+}
+
+/* Large devices (desktops, 992px and down) */
+@media only screen and (max-width: 992px) {
+  #feature,
+  #bestSeller,
+  #popular,
+  #genres {
+    padding: 20px 10px;
+  }
+
+  .browseListRow {
+    height: auto;
+  }
+
+  .centre .leftPart,
+  .centre .rightPart {
+    padding: 0 10px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and down) */
+@media only screen and (max-width: 1200px) {
+  #feature,
+  #bestSeller,
+  #popular,
+  #genres {
+    max-width: 95%;
+  }
+
+  #browseList {
+    max-width: 95%;
+  }
+}
+

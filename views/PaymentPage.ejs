@@ -1,0 +1,45 @@
+<%- include('header') %>
+        <div id="wrapper">
+            
+            <div id="content">
+                <div class="leftPayment">
+                    <h1>Credit card</h1>
+                    <br>
+                    <form action="">
+                        <label for="">Name:</label> <br>
+                        <input type="text" class="signintextfield" value="<%= user.name %>"><br>
+                        <label for="">Card Number:</label> <br>
+                        <input type="text" class="signintextfield"> <br>
+                        <label for="">Expiration:</label> <br>
+                        <input type="text" class="signintextfield"> <br>
+                        <label for="">CCV:</label> <br>
+                        <input type="text" class="signintextfield"> <br>
+                    </form>
+                </div>
+
+                <div class="rightPayment">
+                    <fieldset class="boxfield">
+                        <legend>Sumary</legend>
+                        <% for (let i = 0; i < orderItems.length; i++) { %>
+                        <div class="paymentGameCard">
+                            <img src="/assets/Images/<%= orderItems[i].imgPath %>/Logo.png" alt="">
+                            <div class="rightDiv">
+                                <h1><%= orderItems[i].name %></h1>
+                                <h3><%= orderItems[i].price %>$</h3>
+                            </div>
+                        </div>
+                        <% } %>
+                        
+                        <h1>-----------------------------------</h1>
+                        <br>
+                        <h1>Items : <%= order.amount %></h1>
+                        <h1>Price : $ <%= order.totalPrice %></h1>
+                        <br>
+                        <input type="button" value="Checkout" class="signinbutton" onclick="CheckOut()">
+                    </fieldset>
+                </div>
+                
+            </div>
+            
+        </div>
+<%- include('footer') %>

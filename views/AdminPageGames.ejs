@@ -1,0 +1,54 @@
+<%- include('header') %>
+    <div id="content">
+        <div class="centre" style="width: 1300px;">
+            <a href="/admin/users" class="signinbutton">UserList</a>
+            <a href="/admin/games" class="signinbutton">GameList</a>
+            <a href="/admin/genres" class="signinbutton">GenreList</a>
+            <a href="/admin/add-game" class="signinbutton" style="float: right;">Add new</a>
+        </div>
+            <div class="centre" style="width: 1300px;">
+                <h1>GAMES</h1>
+                <table class="userListTable">
+                    <tr>
+                        <th>Game logo</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Release Date</th>
+                        <th>Lastest Update</th>
+                        <th>Developer</th>
+                        <th>Publisher</th>
+                        <th>Price</th>
+                        <th>Genres</th>
+                        <th>FolderPath</th>
+                        <th>Description</th>
+                        <th>Requirements</th>
+                        <th>ShortDescribe</th>
+                        <th>Function</th>
+                    </tr>
+
+                    <% for(let i=0; i<games.length; i++) { %>
+                    <tr>
+                        <td><img src="/assets/Images/<%= games[i].imgPath %>/Logo.png" width="100px" height="100px"></td>
+                        <td class="ellipsis"><%= games[i].ID %></td>
+                        <td class="ellipsis"><%= games[i].name %></td>
+                        <td class="ellipsis"><%= games[i].releaseDate.substring(0, 10) %></td>
+                        <td class="ellipsis"><%= games[i].latestUpdate.substring(0, 10) %></td>
+                        <td class="ellipsis"><%= games[i].dev %></td>
+                        <td class="ellipsis"><%= games[i].publisher %></td>
+                        <td class="ellipsis"><%= games[i].price %></td>
+                        <td class="ellipsis"><%= games[i].GenreID %></td>
+                        <td class="ellipsis"><%= games[i].imgPath %></td>
+                        <td class="ellipsis"><%= games[i].description %></td>
+                        <td class="ellipsis"><%= games[i].requirement %></td>
+                        <td class="ellipsis"><%= games[i].shortDescribe %></td>
+                        <td>
+                          <a href="/add-games">Edit</a>
+                          <a href="">Delete</a>
+                        </td>
+                    </tr>
+                    <% } %>
+                </table>
+        </div>
+    </div>
+
+<%- include('footer') %>

@@ -1,0 +1,71 @@
+<%- include('header') %>
+        <div id="content">
+            <div id="centre">
+
+                <div id="searchDetail">
+                    <div id="context">
+                        <h1>Discover the STEPTH's Game store</h1>
+                        <p>We have diverse game genres with many popular game to explore</p>
+                    </div>
+
+                    
+                    <div id="funcButton">
+                        <label for="">Genre filter</label> <br> <br>
+                        <select name="" id="">
+                            <option value="RPG">RPG</option>
+                            <option value="Soul-like">Soul-like</option>
+                        </select>
+                    </div>
+                    <div id="funcButton">
+                        <label for="">Sort by</label> <br> <br>
+                        <select name="" id="">
+                            <option value="Name A-Z">Name A-Z</option>
+                            <option value="Name Z-A">Name Z-A</option>
+                            <option value="Price up">Price up</option>
+                            <option value="Price down">Price down</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="browseList">
+                    <% for (let i = 0; i < games.length; i++) { %>
+                      <% if (i % 5 == 0 ) { %>
+                        <div class="browseListRow">
+                      <% } %>
+                  
+                      <div class="smallGameCard" onclick="GoToDetailPage(<%= games[i].ID %>)">
+                        <img src="/assets/Images/<%= games[i].imgPath %>/Logo.png">
+                        <h2><%= games[i].name %></h2>
+                        <h3><%= games[i].price %> $</h3> 
+                      </div>
+                  
+                      <% if (i % 5 == 4 ) { %>
+                        </div>
+                      <% } %>
+                    <% } %>
+                  </div>
+                  
+
+                <div id="changePage">
+                    <!-- <h1>1 2 3 4 ... 10</h1> -->
+                    <a href="">1</a>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <h5>...</h5>
+                    <a href="">7</a>
+                    <a href="">></a>
+                </div>
+
+            </div>
+        </div>
+
+<%- include('footer') %>
+
+<script>
+    const games = <%- JSON.stringify(games) %>;
+
+    function GoToDetailPage(gameID) {
+        window.location.href = `/games/${gameID}`;
+    }
+    
+</script>

@@ -1,0 +1,75 @@
+<%- include('header') %>
+
+    <div id="content">
+        <div id="centre">
+            <h1>Create an account</h1>
+            <form name="signUpForm">
+                <label>Name:</label><br>
+                <input type="text" name="name" class="signintextfield" required><br>
+
+                <label>Account Name:</label><br>
+                <input type="text" name="username" class="signintextfield" required><br>
+
+                <label>Email:</label><br>
+                <input type="email" name="email" class="signintextfield" required><br>
+
+                <label>Date of Birth:</label><br>
+                <input type="date" name="dateOfBirth" class="signintextfield"><br>
+
+                <label>Gender:</label> &nbsp;
+                <input type="radio" name="gender" value="Male"> Male
+                <input type="radio" name="gender" value="Female"> Female<br><br>
+
+                <label>Password:</label><br>
+                <input type="password" name="password" class="signintextfield" required><br>
+
+                <label>Confirm password:</label><br>
+                <input type="password" name="passwordConfirm" class="signintextfield" required><br>
+
+                <p>By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy.</p>
+                <input type="submit" value="Sign Up" class="signinbutton">
+                <div style="margin: auto; text-align: center; padding: 20px;">
+                    <a href="/signin">Already have an account?</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        document.forms["signUpForm"].addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const form = e.target;
+
+            const data = {
+                name: form.name.value,
+                username: form.username.value,
+                email: form.email.value,
+                dateOfBirth: form.dateOfBirth.value,
+                gender: form.gender.value,
+                password: form.password.value,
+                RoleID: 2
+            };
+
+            try {
+                const response = await fetch("http://localhost:5000/api/user", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('API responded with status ' + response.status);
+                }
+
+                const result = await response.json();
+                alert("User registered successfully!");
+                window.location.href = "/signin";  // Điều hướng về trang đăng nhập
+            } catch (err) {
+                console.error('Registration error:', err);
+                alert("Error: " + err.message);
+            }
+        });
+    </script>
+
+    <%- include('footer') %>

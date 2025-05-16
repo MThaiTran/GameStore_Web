@@ -1,0 +1,55 @@
+<%- include('header') %>
+    <div id="content">
+        <div class="centre" style="width: 1300px;">
+            <a href="/admin/users" class="signinbutton">UserList</a>
+            <a href="/admin/games" class="signinbutton">GameList</a>
+            <a href="/admin/genres" class="signinbutton">GenreList</a>
+            <a href="/admin/add-user" class="signinbutton" style="float: right;">Add new</a>
+        </div>
+        <div class="centre" style="width: 1300px;">
+            <h1>USERS</h1>
+            <table class="userListTable">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email Address</th>
+                    <th>Name</th>
+                    <th>Phone number</th>
+                    <th>Date of birth</th>
+                    <th>Gender</th>
+                    <th>Address</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>Collection</th>
+                    <th>Function</th>
+                </tr>
+
+            
+                <% for(let i=0; i<users.length; i++) { %>
+                    <tr>
+                        <td><%= users[i].ID %></td>
+                        <td><%= users[i].username %></td>
+                        <td><%= users[i].email %></td>
+                        <td><%= users[i].name %></td>
+                        <td><%= users[i].phoneNumber ? users[i].phoneNumber : 'N/A' %></td>
+                        <td><%= users[i].dateOfBirth ? users[i].dateOfBirth.substring(0, 10) : 'N/A' %></td>
+                        <td><%= users[i].gender ? users[i].gender : 'N/A' %></td>
+                        <td><%= users[i].address ? users[i].address : 'N/A' %></td>
+                        <td><%= users[i].password %></td>
+                        <td><%= users[i].RoleID %></td>
+                        <td>
+                            <a href="/admin/wishlist">Wishlist</a>
+                            <a href="AdminPageUsersCart.html">Cart</a>
+                            <a href="AdminPageUsersLibrary.html">Library</a>
+                        </td>
+                        <td>
+                            <a href="/admin/edit-user">Edit</a>
+                            <a href="/admin/delete-user">Delete</a>
+                        </td>
+                    </tr>
+                <% } %>
+            
+            </table>
+        </div>
+    </div>
+<%- include('footer') %>

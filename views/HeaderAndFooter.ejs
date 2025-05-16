@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <title>Header and Footer</title>
+        <link rel="stylesheet" href="../css/common.css">
+        <script src="../js/Header.js"></script>
+    </header>
+
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <h1>STEPTH</h1>
+                <a href="BrowsePage.html">Browse</a>
+                <a href="HomePage.html">Discover</a>
+                <div id="searchPanel">
+                    <form name="searchBar" method="get" onsubmit="return Search()">
+                        <input type="text" name="keyword" class="textfield" id="searchInput" value="">
+                        <input type="submit" value="Q" class="button">
+                    </form>
+                </div>
+
+                <div id="unSignedProfilePanel">
+                    <a href="SignIn.html">Sign in</a>
+                </div>
+
+                <div id="signedProfilePanel">
+                    <button onclick="DropDownMenu()" id="usernameHeader">username</button>
+                    <div id="dropdown-content">
+                        <a href="UserProfile.html">Profile</a> <br>
+                        <a href="CartPage.html">Cart</a> <br>
+                        <a href="WishlistPage.html">Wishlist</a> <br>
+                        <a href="LibraryPage.html">Library</a> <br>
+                        <a href="" onclick="LogOut()">Log out</a>
+                    </div>
+                    <div id="userIcon">
+                        <h3>m</h3>
+                    </div>
+                    
+                </div>
+
+
+            </div>
+            
+            <div id="content">
+
+            </div>
+            
+            <div id="footer">
+                <!-- <div id="Logo"></div>
+                <div id="ContentF"></div>
+                <div id="Img"></div> -->
+                <h1>STEPTH</h1>
+                <p>
+                    © 2025, Stepth, Inc. All rights reserved. 
+                    Stepth, the Stepth Games logo are trademarks or registered trademarks of Stepth, Inc. in the US and other countries. 
+                    Other brands or product names are the trademarks of their respective owners.
+                </p>
+                <div id="social">
+                    <a href="https://www.facebook.com"><img src="../../Images/fb.png" alt="Facebook"></a>
+                    <a href="https://www.youtube.com"><img src="../../Images/youtube.png" alt="Facebook"></a>
+                    <a href="https://www.instagram.com"><img src="../../Images/insta.png" alt="Facebook"></a>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>

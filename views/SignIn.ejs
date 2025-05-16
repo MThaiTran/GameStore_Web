@@ -1,0 +1,64 @@
+<%- include('header') %>
+
+    <div id="content">
+        <div id="centre">
+            <h1>Sign in</h1>
+            <form name="signInForm"">
+                    <label for="">Account Name:</label> <br>
+                    <input type=" text" name="username" class="signintextfield" required> <br>
+                <label for="">Password:</label> <br>
+                <input type="password" name="password" class="signintextfield" required> <br>
+                <input type="checkbox" class="savePass">
+                <label for="">Remember me</label> <br>
+                <input type="submit" value="Sign in" class="signinbutton" id="signin"> <br>
+                <h2>NEW TO STEPTH ?</h2>
+                <a href="/signup" target="_parent">Create an account</a>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script>
+        document.forms["signInForm"].addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const username = this.username.value;
+            const password = this.password.value;
+
+            try {
+                const response = await fetch("http://localhost:5000/api/user");
+
+                if (!response.ok) {
+                    throw new Error('API responded with status ' + response.status);
+                }
+
+                const result = await response.json();
+                console.log('API Response:', result);
+
+                const userArray = result.data;  // ✅ lấy đúng mảng từ API
+
+                if (!Array.isArray(userArray)) {
+                    throw new Error('Expected array in data property');
+                }
+
+                const user = userArray.find(u => u.username === username && u.password === password);
+
+                if (user) {
+                    localStorage.setItem("loggedInUser", JSON.stringify(user));
+                    alert("Login successful!");
+                    window.location.href = "/";  // hoặc bất cứ trang nào bạn muốn
+                } else {
+                    alert("Invalid credentials!");
+                }
+
+
+            } catch (err) {
+                console.error('Fetch error:', err);
+                alert("Error: " + err.message);
+            }
+        });
+    </script>
+
+
+
+    <%- include('footer') %>

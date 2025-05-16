@@ -1,0 +1,34 @@
+<%- include('header') %>
+    <div id="content">
+        <div class="centre" style="width: 1300px;">
+            <a href="/admin/users" class="signinbutton">UserList</a>
+            <a href="/admin/games" class="signinbutton">GameList</a>
+            <a href="/admin/genres" class="signinbutton">GenreList</a>
+            <a href="/admin/add-genre" class="signinbutton" style="float: right;">Add new</a>
+        </div>
+            <div class="centre" style="width: 1300px;">
+                <h1>Genres</h1>
+                <table class="userListTable">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Function</th>
+                    </tr>
+
+                    <% for(let i=0; i<genres.length; i++) { %>
+                    <tr>
+                        <td class="ellipsis"><%= genres[i].ID %></td>
+                        <td class="ellipsis"><%= genres[i].name %></td>
+                        <td class="ellipsis"><%= genres[i].description ? genres[i].description : 'N/A' %></td>
+                        <td>
+                          <a href="/add-genre">Edit</a>
+                          <a href="">Delete</a>
+                        </td>
+                    </tr>
+                    <% } %>
+                </table>
+        </div>
+    </div>
+
+<%- include('footer') %>

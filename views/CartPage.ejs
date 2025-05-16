@@ -1,0 +1,33 @@
+<%- include('header') %>
+            <div id="content">
+                <div class="leftCart">
+                    <fieldset class="boxfield">
+                        <legend>My cart</legend>
+                        <% for (let i = 0; i < cartItems.length; i++) { %>
+                            <div class="cartGameCard">
+                                <img src="/assets/Images/<%= cartItems[i].imgPath %>/Logo.png" alt="">
+                                <div class="cartTextDiv">
+                                    <h1><%= cartItems[i].name %></h1>
+                                    <input type="button" value="Remove" class="removeButton"> 
+                                    <h2><%= cartItems[i].price %>$</h2>
+                                    <br>
+                                    <h4>Release: <%= cartItems[i].releaseDate.substring(0, 10) %></h4>
+                                </div>
+                            </div>
+                        <% } %>
+                    </fieldset>
+                </div>
+
+                <div class="rightCart">
+                    <fieldset class="boxfield">
+                        <legend>Sumary</legend>
+                        <h1>Items : <%= cart.amount %></h1>
+                        <h1>Price : $ <%= cart.totalPrice %></h1>
+                        <h1>-----------------------------</h1>
+                        <input type="button" value="Checkout" class="signinbutton" onclick="GoToPaymentPage()">
+                    </fieldset>  
+                </div>
+                
+            </div>
+
+<%- include('footer') %>

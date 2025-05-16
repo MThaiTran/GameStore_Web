@@ -1,0 +1,144 @@
+<%- include('header') %>
+
+        <div id="content">
+
+            <div id="leftPanel">
+                <h1 id="itemNameTitle"><%= game.name %></h1> <br>
+                <img src="" id="detailImg">
+                <div id="imgSlider">
+                    <img src="/assets/Images/<%= game.imgPath %>/Sp2.png" alt="" id="sliderF" onclick="ShowDetailImg(1)">
+                    <img src="/assets/Images/<%= game.imgPath %>/Sp3.png" alt="" onclick="ShowDetailImg(2)">
+                    <img src="/assets/Images/<%= game.imgPath %>/Sp4.png" alt="" onclick="ShowDetailImg(3)">
+                    <img src="/assets/Images/<%= game.imgPath %>/Sp5.png" alt="" onclick="ShowDetailImg(4)">
+                    <img src="/assets/Images/<%= game.imgPath %>/Sp6.png" alt="" id="sliderL" onclick="ShowDetailImg(5)">
+                </div>
+
+                <div id="genresTag">
+                    <h1>Genres</h1> <br>
+                    <h3><%= genreName %></h3>
+                </div>
+
+                <div id="about">
+                    <h1>About this game</h1> <br>
+                    <p><%- game.description %></p>
+                </div>
+
+                <br> <br>
+                <h1>System Requirements</h1>
+                <div id="requirement">
+                    <% const reqItems = game.requirement.split(';').map(item => item.trim());%>
+                    <div class="floatSide">
+                        <h1>MINIMUM REQUIREMENTS:</h1> <br>
+                        <h3>Requires a 64-bit processor and operating system</h3> <br>
+                        <% reqItems.forEach(line => { %>
+                            <h2><%= line %></h2>
+                          <% }) %>
+                    </div>
+                </div>
+            </div>
+
+            <div id="rightPanel">
+                <img src="/assets/Images/<%= game.imgPath %>/Sp1.png">
+                <div class="itemTitle">
+                    <h4>Realease Date</h4>
+                </div>
+                <div class="itemData">
+                    <h4 id="rDate"><%= game.releaseDate.substring(0, 10) %></h4>
+                </div>
+
+                <div class="itemTitle">
+                    <h4>Latest Update</h4>
+                </div>
+                <div class="itemData">
+                    <h4 id="lDate"><%= game.latestUpdate.substring(0, 10) %></h4>
+                </div>
+
+                <div class="itemTitle">
+                    <h4>Developer</h4>
+                </div>
+                <div class="itemData">
+                    <h4 id="dev"><%= game.dev %></h4>
+                </div>
+
+                <div class="itemTitle">
+                    <h4>Publisher</h4>
+                </div>
+                <div class="itemData">
+                    <h4 id="publisher"><%= game.publisher %></h4>
+                </div>
+
+                <h1 id="priceTag"><%= game.price %> $</h1>
+
+                <input type="button" value="Purchase Now" class="signinbutton" id="checkout" onclick="GoToPayment()">
+                <input type="button" value="Add to Cart" class="signinbutton" id="addToCart" onclick="AddToCart()">
+                <input type="button" value="Add to Wishlist" class="signinbutton" id="addToWishlist"
+                    onclick="AddToWishlist()">
+
+            </div>
+
+        </div>
+
+       <%- include('footer') %>
+
+        <script>
+            function ShowDetailImg(index) {
+                document.getElementById("detailImg").src = "/assets/Images/<%= game.imgPath %>/Sp" + (index+1) + ".png";
+            }
+            window.onload = function() {
+                ShowDetailImg(1);
+            }
+        </script>
+
+
+
+    <!-- <script>
+        const params = new URLSearchParams(window.location.search);
+        const itemID = params.get('itemID');
+        const user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+        // document.body.innerHTML = `<h2>${itemID}</h2>`;
+
+        if (itemID == null) {
+            // document.body.innerHTML = "<h2>Error: itemID is missing in URL</h2>";
+        } else {
+            fetch(`http://localhost:5000/api/games`)
+                .then(res => res.json())
+                .then(games => {
+                    const game = games.find(g => g.ID == itemID);
+                    if (!game) {
+                        document.body.innerHTML = "<h2>Game not found</h2>";
+                        return;
+                    }
+                    const div = document.createElement("div");
+                    div.innerHTML = `
+            <h2>${game.name}</h2>
+            <p>${game.description || 'No description'}</p>
+            <p>Price: $${game.price}</p>
+            <button onclick="addTo('cart')">Add to Cart</button>
+            <button onclick="addTo('wishlist')">Add to Wishlist</button>
+            <button onclick="addTo('library')">Buy Now</button>
+        `;
+                    document.body.appendChild(div);
+                })
+                .catch(err => {
+                    document.body.innerHTML = "<h2>Error loading game details</h2>";
+                    console.error(err);
+                });
+        }
+
+        function addTo(type) {
+            if (!user) {
+                alert("Please login first!");
+                return;
+            }
+            const key = type + "_" + user.ID;
+            const list = JSON.parse(localStorage.getItem(key)) || [];
+            if (!list.includes(itemID)) {
+                list.push(itemID);
+                localStorage.setItem(key, JSON.stringify(list));
+                alert("Added to " + type + "!");
+            } else {
+                alert("Already in " + type + "!");
+            }
+        }
+    </script> -->

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <title>Sign in</title>
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <script src="/assets/js/api.js"></script>
+    <script src="/assets/js/Header.js"></script>
+    <script src="/assets/js/Browse.js"></script>
+    <script src="/assets/js/Login.js"></script>
+</header>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <h1>STEPTH</h1>
+            <a href="/games">Browse</a>
+            <a href="/">Discover</a>
+            <div id="searchPanel">
+                <form name="searchBar" method="get" onsubmit="return Search()">
+                    <input type="text" name="keyword" class="textfield" id="searchInput" value="">
+                    <input type="submit" value="Q" class="button">
+                </form>
+            </div>
+
+            <div id="unSignedProfilePanel">
+                <a href="/signin">Sign in</a>
+            </div>
+
+            <div id="signedProfilePanel">
+                <button onclick="DropDownMenu()" id="usernameHeader">username</button>
+                <div id="dropdown-content">
+                    <a href="/profile">Profile</a> <br>
+                    <a href="/cart">Cart</a> <br>
+                    <a href="/wishlist">Wishlist</a> <br>
+                    <a href="/library">Library</a> <br>
+                    <a href="" onclick="LogOut()">Log out</a>
+                </div>
+                <div id="userIcon">
+                    <h3>m</h3>
+                </div>
+
+            </div>
+
+
+        </div>

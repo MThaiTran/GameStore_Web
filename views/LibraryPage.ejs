@@ -1,0 +1,28 @@
+<%- include('header') %>
+
+            <div id="content">
+                <div class="centrebox">
+                    <fieldset class="boxfield">
+                        <legend>Library</legend>
+                        <% for (let i = 0; i < libraryItems.length; i++) { %>
+                        <div class="libraryGameCard">
+                            <div class="imgDiv"> <img src="/assets/Images/<%= libraryItems[i].imgPath %>/Sp1.png" alt=""></div>
+                            <div class="contextDiv">
+                                <h1><%= libraryItems[i].name %></h1>
+                                <h4>Release: <%= libraryItems[i].releaseDate.substring(0, 10) %></h4>
+                                <h5>Genre: <%= libraryItems[i].GenreID %></h5>
+                            </div>
+                            <div class="functionDiv">
+                                <h1 class="removeButton">Added on 20/11/2012</h1>
+                                <br> <br> <br> <br> <br> <br> 
+                                
+                                <input type="button" value="Payment history" class="addButton" onclick="GoToBill()">
+                            </div>
+                        </div>
+                        <% } %>
+                    </fieldset>
+                </div>
+                
+            </div>
+
+<%- include('footer') %>

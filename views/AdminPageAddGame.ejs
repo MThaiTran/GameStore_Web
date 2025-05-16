@@ -1,0 +1,51 @@
+<%- include('header') %>
+
+    <div id="content">
+        <div class="centre" style="width: 600px;">
+            <form action="" class="addGame" id="addGameForm">
+                <h1>Add new game</h1>
+                <label for="gameName">Name: </label>
+                <input type="text" id="gameName" name="name" required> <br>
+
+                <label for="releaseDate">Release Date: </label>
+                <input type="text" id="releaseDate" name="releaseDate" required> <br>
+
+                <label for="latestUpdate">Latest Update: </label>
+                <input type="text" id="latestUpdate" name="latestUpdate" required> <br>
+
+                <label for="developer">Developer: </label>
+                <input type="text" id="developer" name="dev" required> <br>
+
+                <label for="publisher">Publisher: </label>
+                <input type="text" id="publisher" name="publisher" required> <br>
+
+                <label for="price">Price: </label>
+                <input type="text" id="price" name="price" required> <br>
+
+                <label for="genres">Genres: </label>
+                <select name="" id="">
+                    <option value="">Choose genre</option>
+                    <option value="">RPG</option>
+                    <option value="">Action</option>
+                    <option value="">Platformer</option>
+                </select> <br>
+
+                <label for="imgPath">Image Foler Path: </label>
+                <input type="text" id="price" name="price" required> <br>
+
+                <label for="price">Description: </label>
+                <textarea name="" id=""></textarea> <br>
+                
+                <label for="price">Description: </label>
+                <textarea name="" id=""></textarea> <br>
+
+                <label for="price">Short-Describe: </label>
+                <textarea name="" id=""></textarea> <br>
+
+                <br>
+                <button type="submit" class="signinbutton">Save</button>
+                <a href="/admin/games" class="signinbutton">Go back</a>
+            </form>
+        </div>
+    </div>
+    <%- include('footer') %>
