@@ -1,4 +1,4 @@
-<%- include('header') %>
+<%- include('../Component/header') %>
 
     <div id="content">
         <div id="centre">
@@ -15,6 +15,12 @@
 
                 <label>Date of Birth:</label><br>
                 <input type="date" name="dateOfBirth" class="signintextfield"><br>
+                
+                <label>Phone Number:</label><br>
+                <input type="text" name="phoneNumber" class="signintextfield"><br>
+                
+                <label>Address</label><br>
+                <input type="text" name="address" class="signintextfield"><br>
 
                 <label>Gender:</label> &nbsp;
                 <input type="radio" name="gender" value="Male"> Male
@@ -44,10 +50,12 @@
             const data = {
                 name: form.name.value,
                 username: form.username.value,
+                password: form.password.value,
                 email: form.email.value,
+                phoneNumber: form.phoneNumber.value,
                 dateOfBirth: form.dateOfBirth.value,
                 gender: form.gender.value,
-                password: form.password.value,
+                adress: form.address.value,
                 RoleID: 2
             };
 
@@ -72,4 +80,4 @@
         });
     </script>
 
-    <%- include('footer') %>
+    <%- include('../Component/footer') %>

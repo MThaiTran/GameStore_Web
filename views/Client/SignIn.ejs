@@ -1,4 +1,4 @@
-<%- include('header') %>
+<%- include('../Component/header') %>
 
     <div id="content">
         <div id="centre">
@@ -22,35 +22,34 @@
     <script>
         document.forms["signInForm"].addEventListener("submit", async function (e) {
             e.preventDefault();
-            const username = this.username.value;
-            const password = this.password.value;
+            // const username = this.username.value;
+            // const password = this.username.value;
 
             try {
-                const response = await fetch("http://localhost:5000/api/user");
+                const response = await fetch('http://localhost:5000/auth/login',{
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: this.username.value,
+                        password: this.password.value
+                    })
+                });
 
-                if (!response.ok) {
-                    throw new Error('API responded with status ' + response.status);
+                if(!response.ok){
+                    const status = response.status;
+                    if(status === 404) alert('User not exist!');
+                    else if(status === 404) alert('Wrong password!');
+                    return;
                 }
 
                 const result = await response.json();
                 console.log('API Response:', result);
 
-                const userArray = result.data;  // ✅ lấy đúng mảng từ API
+                localStorage.setItem("loggedInUser", JSON.stringify(result.user));
 
-                if (!Array.isArray(userArray)) {
-                    throw new Error('Expected array in data property');
-                }
-
-                const user = userArray.find(u => u.username === username && u.password === password);
-
-                if (user) {
-                    localStorage.setItem("loggedInUser", JSON.stringify(user));
-                    alert("Login successful!");
-                    window.location.href = "/";  // hoặc bất cứ trang nào bạn muốn
-                } else {
-                    alert("Invalid credentials!");
-                }
-
+                localStorage.setItem("token", result.token);
+                alert("Login successful!");
+                window.location.href = "/";  // hoặc bất cứ trang nào bạn muốn
 
             } catch (err) {
                 console.error('Fetch error:', err);
@@ -61,4 +60,4 @@
 
 
 
-    <%- include('footer') %>
+    <%- include('../Component/footer') %>

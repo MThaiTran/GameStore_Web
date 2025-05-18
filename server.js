@@ -14,8 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Route KHÔNG yêu cầu token
-// const authRoutes = require('./routes/AuthRoutes');
-// app.use('/auth', authRoutes);
+const authRoutes = require('./routes/AuthRoutes');
+app.use('/auth', authRoutes);
 
 // Upload routes (không yêu cầu token)
 // const uploadRoutes = require('./routes/upload');

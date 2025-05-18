@@ -1,4 +1,4 @@
-<%- include('header') %>
+<%- include('../Component/header') %>
 
     <div id="content">
         <div id="centre">
@@ -35,7 +35,7 @@
                         <h2>
                             <%= games[i].name %>
                         </h2>
-                        <h3>9,99 $</h3>
+                        <h3><%= games[i].price %> $</h3>
                     </div>
                     <% } %>
 
@@ -45,8 +45,8 @@
                                 <h2>
                                     <%= games[i].name %>
                                 </h2>
-                                <p>Short discription of the game</p>
-                                <h3>9,99 $</h3>
+                                <p><%= games[i].shortDescribe %></p>
+                                <h3><%= games[i].price %> $</h3>
                             </div>
                             <% } %>
 
@@ -62,7 +62,7 @@
                         <h2>
                             <%= games[i].name %>
                         </h2>
-                        <h3>9,99 $</h3>
+                        <h3><%= games[i].price %> $</h3>
                     </div>
                     <% } %>
             </div>
@@ -89,15 +89,15 @@
                         <h2>
                             <%= games[i].name %>
                         </h2>
-                        <p>Short discription of the game</p>
-                        <h3>9,99 $</h3>
+                        <p><%= games[i].shortDescribe %></p>
+                        <h3><%= games[i].price %> $</h3>
                     </div>
                     <% } %>
             </div> 
         </div>
     </div>
 
-    <%- include('footer') %>
+    <%- include('../Component/footer') %>
 
     <script>
         const games = <%- JSON.stringify(games) %>;

@@ -1,4 +1,4 @@
-<%- include('header') %>
+<%- include('../Component/header') %>
 
         <div id="content">
 
@@ -70,15 +70,14 @@
                 <h1 id="priceTag"><%= game.price %> $</h1>
 
                 <input type="button" value="Purchase Now" class="signinbutton" id="checkout" onclick="GoToPayment()">
-                <input type="button" value="Add to Cart" class="signinbutton" id="addToCart" onclick="AddToCart()">
-                <input type="button" value="Add to Wishlist" class="signinbutton" id="addToWishlist"
-                    onclick="AddToWishlist()">
+                <input type="button" value="Add to Cart" class="signinbutton" id="addToCart" onclick="AddToCart(<%= game.ID %>)">
+                <input type="button" value="Add to Wishlist" class="signinbutton" id="addToWishlist" onclick="AddToWishlist()">
 
             </div>
 
         </div>
 
-       <%- include('footer') %>
+       <%- include('../Component/footer') %>
 
         <script>
             function ShowDetailImg(index) {
@@ -86,6 +85,28 @@
             }
             window.onload = function() {
                 ShowDetailImg(1);
+            }
+
+            async function AddToCart(gameId){
+                const user = JSON.parse(localStorage.getItem('loggedInUser'));
+                const userId = user.ID;
+
+                console.log("User :" + userId + " Game: " + gameId);
+
+                const response = await fetch(`http://localhost:5000/api/user/${userId}/cart`,{
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        GameID: gameId
+                    })
+                });
+                
+                if(!response.ok){
+                    alert(response.status);
+                    return
+                } else{
+                    document.getElementById("addToCart").value = "Added to your cart";
+                }
             }
         </script>
 

@@ -1,4 +1,4 @@
-<%- include('header') %>
+<%- include('../Component/header') %>
             <div id="content">
                 <div class="leftCart">
                     <fieldset class="boxfield">
@@ -30,4 +30,10 @@
                 
             </div>
 
-<%- include('footer') %>
+<%- include('../Component/footer') %>
+
+<script>
+    function GoToPaymentPage(){
+        window.location.href = '/payment/1';
+    }
+</script>

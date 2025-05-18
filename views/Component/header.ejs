@@ -5,8 +5,6 @@
     <link rel="stylesheet" href="/assets/css/common.css">
     <script src="/assets/js/api.js"></script>
     <script src="/assets/js/Header.js"></script>
-    <script src="/assets/js/Browse.js"></script>
-    <script src="/assets/js/Login.js"></script>
 </header>
 
 <body>
@@ -29,10 +27,10 @@
             <div id="signedProfilePanel">
                 <button onclick="DropDownMenu()" id="usernameHeader">username</button>
                 <div id="dropdown-content">
-                    <a href="/profile">Profile</a> <br>
-                    <a href="/cart">Cart</a> <br>
-                    <a href="/wishlist">Wishlist</a> <br>
-                    <a href="/library">Library</a> <br>
+                    <a id="profile-link" href="#">Profile</a><br>
+                    <a id="cart-link" href="#">Cart</a> <br>
+                    <a id="wishlist-link" href="#">Wishlist</a> <br>
+                    <a id="library-link" href="#">Library</a> <br>
                     <a href="" onclick="LogOut()">Log out</a>
                 </div>
                 <div id="userIcon">

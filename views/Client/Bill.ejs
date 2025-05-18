@@ -1,0 +1,56 @@
+<%- include('../Component/header') %>
+            <div id="content">
+                <div class="centre" id="billPage">
+                    <h1>Invoice</h1>
+                    <h3>Invoice ID: #<%= order.ID %></h3>
+                    <h3>Order Date: <%= order.orderDate.substring(0,10) %></h3>
+                    <h3>Sender: Stepth@gmail.com</h3>
+                    <h3>Receiver: <%= user.name %></h3>
+                    <h3>Receiver's mail: <%= user.email %></h3>
+
+                    <table class="customTable">
+                        <tr>
+                            <th class="r1">Item</th>
+                            <th>Price</th>
+                            <th>Tax</th>
+                            <th>Sub total</th>
+                        </tr>
+
+                        <% for(let i=0; i<orderItems.length; i++) { %>
+                            <tr>
+                                <td class="r1"><%= orderItems[i].name %></td>
+                                <td><%= orderItems[i].price %>$</td>
+                                <td>0%</td>
+                                <td><%= orderItems[i].price %>$</td>
+                            </tr>
+                        <% } %>
+                        <tr>
+                            <th colspan="3">Total: <%= order.amount %></th>
+                            <td> <%= order.totalPrice%>$ </td>
+                        </tr>
+                        
+                    </table>
+
+                    <h2>Credit Card details</h2>
+                    <h3>Account name: <%= user.name %></h3>
+                    <h3>Card Number: <%= order.cardNumber || '****' %></h3>
+                    <h3>Exp: <%= order.cardExp || 'N/A' %></h3>
+                    <h3>State: <%= order.status %> !</h3>
+                    <h3>Thanks for choosing STEPTH</h3>
+
+                    <br>
+                    <input type="button" class="signinbutton" value="Print out invoice" style="margin: 20px 0px;" onclick="window.print()">
+
+                    <br>
+                    <input type="button" class="signinbutton" value="Go back to library" style="margin: 20px 0px;" onclick="GoToLibrary()">
+                </div>
+            </div>
+
+<script>
+    function GoToLibrary() {
+        const userId = '<%= user.id %>';
+        window.location.href = `/library/${userId}`;
+    }
+</script>
+
+<%- include('../Component/footer') %>

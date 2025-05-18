@@ -4,8 +4,8 @@ const AuthController = require('../controllers/AuthController');
 
 router.post('/login', AuthController.login);
 
-router.get('/ping', (req, res) => {
-    res.json({ message: 'pong' });
+router.get('/login', (req, res) => {
+    res.json({ message: 'Success!' });
 });
 
 module.exports = router;

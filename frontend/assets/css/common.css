@@ -1,6 +1,18 @@
+@font-face {
+    font-family: 'doodle';
+    /* src: url('../fonts/lemonade.ttf') format('truetype'); */
+    src: url(https://fonts.gstatic.com/s/shortstack/v15/bMrzmS2X6p0jZC6EcmPFX9SVe34.woff2) format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+
 *{
     padding: 0;
     margin: 0;
+    /* font-family: 'doodle'; */
+    /* font-size: 18px; */
+    /* letter-spacing: 1px; */
 }
 
 #wrapper{
@@ -387,6 +399,11 @@ form a{
     outline: 4px solid black;
     border-radius: 15px;
     margin: 25px;
+
+    /* border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-bottom-right-radius: 225px 15px;
+    border-bottom-left-radius:15px 255px; */
 }
 
 .smallGameCard:hover{
@@ -396,10 +413,17 @@ form a{
 }
 
 .smallGameCard img{
-    border-radius: 15px;
+    
     width: 200px;
     height: 200px;
     outline: 4px solid black;
+    border-radius: 15px;
+
+
+    /* border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-bottom-right-radius: 225px 15px;
+    border-bottom-left-radius:15px 255px; */
 }
 
 .smallGameCard h2, .smallGameCard h3{

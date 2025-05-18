@@ -3,13 +3,14 @@ const router = express.Router();
 const axios = require('axios');
 const gameController = require('../../controllers/GameController');
 
+const prefix = 'Client';
 // Home Page
 router.get('/', async (req, res) => {
     try {
       const response = await axios.get('http://localhost:5000/api/game?page=1&limit=5');
       const games = response.data.data; // lấy phần `data` từ JSON trả về
   
-      res.render('HomePage', {games});
+      res.render(prefix + '/Home', {games});
     } catch (error) {
       console.error('Lỗi khi gọi API:', error.message);
     //   res.render('HomePage', { games: [] });
@@ -18,12 +19,12 @@ router.get('/', async (req, res) => {
 
 // Sign Up Page
 router.get('/signup', (req, res) => {
-    res.render('SignUp', { title: 'Sign Up' });
+    res.render(prefix + '/SignUp', { title: 'Sign Up' });
 });
 
 // Sign In Page
 router.get('/signin', (req, res) => {
-    res.render('SignIn', { title: 'Sign In' });
+    res.render(prefix + '/SignIn', { title: 'Sign In' });
 });
 
 // Browse Page (for listing products/games)
@@ -32,7 +33,7 @@ router.get('/games',async (req, res) => {
         const response = await axios.get('http://localhost:5000/api/game?page=1&limit=15');
         const games = response.data.data; // lấy phần `data` từ JSON trả về
     
-        res.render('BrowsePage', {games});
+        res.render(prefix + '/Browse', {games});
       } catch (error) {
         console.error('Lỗi khi gọi API:', error.message);
       //   res.render('HomePage', { games: [] });
@@ -48,15 +49,15 @@ router.get('/games/:gameID', async (req, res) => {
       const getGenreRes = await axios.get(`http://localhost:5000/api/genre/${game.GenreID}`);
       const genreName = getGenreRes.data.name;
         
-      res.render('ItemDetail', { game, genreName });
+      res.render(prefix + '/ItemDetail', { game, genreName });
     } catch (error) {
       console.error('Lỗi khi gọi API:', error.message);
       res.status(500).send('Lỗi server');
     }
 });
   
-router.get('/profile', (req,res) => {
-  res.render('UserProfile', { title: 'User Profile' });
+router.get('/profile/:userId', (req,res) => {
+  res.render(prefix + '/UserProfile', { title: 'User Profile' });
 });
 
 router.get('/cart/:userId', async (req,res) => {
@@ -74,7 +75,7 @@ router.get('/cart/:userId', async (req,res) => {
       cartItems[i] = gameResponse.data;
     }
 
-    res.render('CartPage', {cart, cartItems });
+    res.render(prefix + '/Cart', {cart, cartItems });
   } catch (error) {
     console.error('Lỗi khi gọi API:', error.message);
     res.status(500).send('Lỗi server');
@@ -96,7 +97,7 @@ router.get('/wishlist/:userId', async (req,res) => {
       wishlistItems[i] = gameResponse.data;
     }
 
-    res.render('WishlistPage', {wishlist, wishlistItems });
+    res.render(prefix + '/Wishlist', {wishlist, wishlistItems });
   } catch (error) {
     console.error('Lỗi khi gọi API:', error.message);
     res.status(500).send('Lỗi server');
@@ -118,7 +119,7 @@ router.get('/library/:userId', async (req,res) => {
       libraryItems[i] = gameResponse.data;
     }
 
-    res.render('LibraryPage', {library, libraryItems });
+    res.render(prefix + '/Library', {library, libraryItems });
   } catch (error) {
     console.error('Lỗi khi gọi API:', error.message);
     res.status(500).send('Lỗi server');
@@ -144,11 +145,36 @@ router.get('/payment/:orderId', async (req,res) => {
     const userResponse = await axios.get(`http://localhost:5000/api/user/${order.UserID}`);
     const user = userResponse.data;
 
-    res.render('PaymentPage', {order, orderItems, user });  
+    res.render(prefix + '/Payment', {order, orderItems, user });  
   } catch (error) {
     console.error('Lỗi khi gọi API:', error.message);
     res.status(500).send('Lỗi server');
   }
 });
 
+router.get('/bill/:orderId', async (req,res) => {
+  try {
+    const orderId = req.params.orderId;
+    const response = await axios.get(`http://localhost:5000/api/order/${orderId}`);
+    const order = response.data;
+
+    const itemResponse = await axios.get(`http://localhost:5000/api/order/${orderId}/items`);
+    const itemFK = itemResponse.data;
+
+    console.log(itemFK);
+    let orderItems = [];
+    for (let i = 0; i < itemFK.length; i++) {
+      const gameResponse = await axios.get(`http://localhost:5000/api/game/${itemFK[i].GameID}`);
+      orderItems[i] = gameResponse.data;
+    }
+
+    const userResponse = await axios.get(`http://localhost:5000/api/user/${order.UserID}`);
+    const user = userResponse.data;
+
+    res.render(prefix + '/Bill', {order, orderItems, user });  
+  } catch (error) {
+    console.error('Lỗi khi gọi API:', error.message);
+    res.status(500).send('Lỗi server');
+  }
+});
 module.exports = router;
