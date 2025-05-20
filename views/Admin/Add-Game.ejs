@@ -8,10 +8,10 @@
                 <input type="text" id="gameName" name="name" required> <br>
 
                 <label for="releaseDate">Release Date: </label>
-                <input type="text" id="releaseDate" name="releaseDate" required> <br>
+                <input type="date" id="releaseDate" name="releaseDate" required> <br>
 
                 <label for="latestUpdate">Latest Update: </label>
-                <input type="text" id="latestUpdate" name="latestUpdate" required> <br>
+                <input type="date" id="latestUpdate" name="latestUpdate" required> <br>
 
                 <label for="developer">Developer: </label>
                 <input type="text" id="developer" name="dev" required> <br>
@@ -20,27 +20,27 @@
                 <input type="text" id="publisher" name="publisher" required> <br>
 
                 <label for="price">Price: </label>
-                <input type="text" id="price" name="price" required> <br>
+                <input type="number" id="price" name="price" required> <br>
 
-                <label for="genres">Genres: </label>
-                <select name="" id="">
+                <label for="genre">Genre: </label>
+                <select name="genre" id="genre" required>
                     <option value="">Choose genre</option>
-                    <option value="">RPG</option>
-                    <option value="">Action</option>
-                    <option value="">Platformer</option>
+                    <option value="1">RPG</option>
+                    <option value="2">Action</option>
+                    <option value="3">Platformer</option>
                 </select> <br>
 
-                <label for="imgPath">Image Foler Path: </label>
-                <input type="text" id="price" name="price" required> <br>
+                <label for="imgPath">Image Folder Path: </label>
+                <input type="text" id="imgPath" name="imgPath" required> <br>
 
-                <label for="price">Description: </label>
-                <textarea name="" id=""></textarea> <br>
+                <label for="description">Description: </label>
+                <textarea id="description" name="description" required></textarea> <br>
                 
-                <label for="price">Description: </label>
-                <textarea name="" id=""></textarea> <br>
+                <label for="requirements">Requirements: </label>
+                <textarea id="requirements" name="requirements" required></textarea> <br>
 
-                <label for="price">Short-Describe: </label>
-                <textarea name="" id=""></textarea> <br>
+                <label for="shortDescribe">Short Description: </label>
+                <textarea id="shortDescribe" name="shortDescribe" required></textarea> <br>
 
                 <br>
                 <button type="submit" class="signinbutton">Save</button>
@@ -49,3 +49,54 @@
         </div>
     </div>
     <%- include('../Component/footer') %>
+
+    
+<script>
+    document.getElementById('addGameForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const gameData = {
+            name: document.getElementById('gameName').value,
+            price: document.getElementById('price').value,
+            releaseDate: document.getElementById('releaseDate').value,
+            latestUpdate: document.getElementById('latestUpdate').value,
+            dev: document.getElementById('developer').value,
+            publisher: document.getElementById('publisher').value,
+            description: document.getElementById('description').value,
+            requirement: document.getElementById('requirements').value,
+            imgPath: document.getElementById('imgPath').value,
+            shortDescribe: document.getElementById('shortDescribe').value,
+            GenreID: document.getElementById('genre').value
+        };
+
+        // Validate required fields
+        // if (!gameData.name || !gameData.releaseDate || !gameData.latestUpdate || 
+        //     !gameData.developer || !gameData.publisher || !gameData.price || 
+        //     !gameData.GenreID || !gameData.imgPath || !gameData.description || 
+        //     !gameData.requirements || !gameData.shortDescribe) {
+        //     alert('Please fill in all required fields!');
+        //     return;
+        // }
+
+        try {
+            const response = await fetch('http://localhost:5000/api/game', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(gameData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to create game');
+            }
+
+            alert('Game created successfully!');
+            window.location.href = '/admin/games';
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to create game. Please try again.');
+        }
+    });
+</script>

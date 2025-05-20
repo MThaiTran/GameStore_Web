@@ -24,11 +24,11 @@
             e.preventDefault();
             // const username = this.username.value;
             // const password = this.username.value;
-
             try {
                 const response = await fetch('http://localhost:5000/auth/login',{
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         username: this.username.value,
                         password: this.password.value
@@ -48,7 +48,11 @@
                 localStorage.setItem("loggedInUser", JSON.stringify(result.user));
 
                 localStorage.setItem("token", result.token);
-                alert("Login successful!");
+
+                
+                // axios.defaults.headers.common['Authorization'] = `Bearer ${result.token}`;
+                // alert("Login successful!");
+
                 window.location.href = "/";  // hoặc bất cứ trang nào bạn muốn
 
             } catch (err) {

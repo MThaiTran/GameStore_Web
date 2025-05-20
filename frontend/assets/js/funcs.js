@@ -32,3 +32,46 @@ function DropDownMenu() {
   const dropdown = document.getElementById("dropdown-content");
   dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
+
+async function AddToCollection(collection_name, gameId){
+  const user = JSON.parse(localStorage.getItem('loggedInUser'));
+  const userId = user.ID;
+
+  console.log("User :" + userId + " Game: " + gameId);
+
+  const response = await fetch(`http://localhost:5000/api/user/${userId}/${collection_name}`,{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+          GameID: gameId
+      })
+  });
+  
+  if(!response.ok){
+      alert(response.status);
+      return
+  } else{
+      alert("Added!");
+      document.getElementById("addTo" + collection_name).value = "Added to your " + collection_name;
+  }
+}
+
+async function RemoveFromCollection(collection_name, gameId){
+  const user = JSON.parse(localStorage.getItem('loggedInUser'));
+  const userId = user.ID;
+
+  console.log("User :" + userId + " Game: " + gameId);
+
+  const response = await fetch(`http://localhost:5000/api/user/${userId}/${collection_name}/items/${gameId}`,{
+      method: 'DELETE',
+  });
+  
+  if(!response.ok){
+      alert(response.status);
+      return;
+  } else{
+      window.location.href = `/${collection_name}/${userId}`;
+  }
+}
+
+

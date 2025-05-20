@@ -24,7 +24,7 @@ async function getOrderById(id) {
 
 async function createOrder(data) {
   await poolConnect;
-  await pool.request()
+  const orderResult = await pool.request()
     .input('totalPrice', data.totalPrice)
     .input('UserID', data.UserID)
     .input('amount', data.amount)
@@ -34,7 +34,23 @@ async function createOrder(data) {
     .input('cardExp', data.cardExp)
     .input('orderDate', data.orderDate)
     .input('status', data.status)
-    .query(`INSERT INTO [Order] (totalPrice, UserID, amount, clientName, clientMail, cardNumber, cardExp, orderDate, status) VALUES (@totalPrice, @UserID, @amount, @clientName, @clientMail, @cardNumber, @cardExp, @orderDate, @status)`);
+    .query(`INSERT INTO [Order] (totalPrice, UserID, amount, clientName, clientMail, cardNumber, cardExp, orderDate, status)\
+      OUTPUT INSERTED.ID AS ID
+      VALUES (@totalPrice, @UserID, @amount, @clientName, @clientMail, @cardNumber, @cardExp, @orderDate, @status)`);
+
+  const orderId = orderResult.recordset[0].ID;
+  // console.log(orderId);
+
+  for (const gameId of data.games) {
+    await pool.request()
+      .input('OrderID', sql.Int, orderId)
+      .input('GameID', sql.Int, gameId)
+      .query(`
+        INSERT INTO OrderDetail (OrderID, GameID)
+        VALUES (@OrderID, @GameID)
+      `);
+  }
+  
 }
 
 async function updateOrder(id, data) {
@@ -51,6 +67,20 @@ async function updateOrder(id, data) {
     .input('orderDate', data.orderDate)
     .input('status', data.status)
     .query(`UPDATE [Order] SET totalPrice = @totalPrice, UserID = @UserID, amount = @amount, clientName = @clientName, clientMail = @clientMail, cardNumber = @cardNumber, cardExp = @cardExp, orderDate = @orderDate, status = @status WHERE ID = @ID`);
+
+  await pool.request()
+    .input('OrderID', sql.Int, id)
+    .query('DELETE FROM [OrderDetail] WHERE OrderID = @OrderID');
+
+  for (const gameId of data.games) {
+    await pool.request()
+      .input('OrderID', sql.Int, id)
+      .input('GameID', sql.Int, gameId)
+      .query(`
+        INSERT INTO OrderDetail (OrderID, GameID)
+        VALUES (@OrderID, @GameID)
+      `);
+  }
 }
 
 async function deleteOrder(id) {
@@ -93,7 +123,7 @@ async function getCartByUserId(userId) {
   return result.recordset[0];
 }
 
-async function createOrderFromCart(cartId, clientData) {
+async function createOrderFromCart(cartId) {
   await poolConnect;
 
   const cartResult = await pool.request()
@@ -103,20 +133,21 @@ async function createOrderFromCart(cartId, clientData) {
   const cart = cartResult.recordset[0];
   if (!cart) throw new Error('Cart not found');
 
-  const { clientName, clientMail, cardNumber, cardExp } = clientData;
+  // const { clientName, clientMail, cardNumber, cardExp } = clientData;
   const orderDate = new Date();
   const status = 'Pending';
 
+  const now = new Date();
   const orderResult = await pool.request()
     .input('totalPrice', sql.Float, cart.totalPrice)
     .input('UserID', sql.Int, cart.UserID)
     .input('amount', sql.Int, cart.amount)
-    .input('clientName', sql.NVarChar, clientName)
-    .input('clientMail', sql.NVarChar, clientMail)
-    .input('cardNumber', sql.NVarChar, cardNumber)
-    .input('cardExp', sql.NVarChar, cardExp)
-    .input('orderDate', sql.Date, orderDate)
-    .input('status', sql.NVarChar, status)
+    .input('clientName', sql.NVarChar, "clientName")
+    .input('clientMail', sql.NVarChar, "clientMail")
+    .input('cardNumber', sql.NVarChar, "cardNumber")
+    .input('cardExp', sql.NVarChar, "cardExp")
+    .input('orderDate', sql.Date, now)
+    .input('status', sql.NVarChar, "Pending")
     .query(`INSERT INTO [Order] (totalPrice, UserID, amount, clientName, clientMail, cardNumber, cardExp, orderDate, status)
             OUTPUT INSERTED.ID AS OrderID
             VALUES (@totalPrice, @UserID, @amount, @clientName, @clientMail, @cardNumber, @cardExp, @orderDate, @status)`);

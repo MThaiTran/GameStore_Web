@@ -12,10 +12,10 @@
                                 <h4>Release: <%= wishlistItems[i].releaseDate.substring(0, 10) %></h4>
                             </div>
                             <div class="functionDiv">
-                                <input type="button" value="Remove from wishlist" class="removeButton" onclick="RemoveFromWishlist()">
+                                <input type="button" value="Remove from wishlist" class="removeButton" onclick="RemoveFromCollection('wishlist', <%= wishlistItems[i].ID %>)">
                                 <br> <br> <br> <br> <br> <br>
                                 
-                                <input type="button" value="Add to cart" class="addButton" onclick="AddToCart()">
+                                <input type="button" value="Add to cart" class="addButton" onclick="AddToCollection('cart',<%= wishlistItems[i].ID %>)">
                                 <h1><%= wishlistItems[i].price %>$</h1>
                             </div>
                         </div>

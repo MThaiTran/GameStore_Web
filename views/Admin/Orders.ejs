@@ -37,9 +37,9 @@
                         <td class="ellipsis"><%= orders[i].orderDate.substring(0,10) %></td>
                         <td class="ellipsis"><%= orders[i].status %></td>
                         <td>
-                            <a href="">Show Items</a>
-                            <a href="/add-order">Edit</a>
-                            <a href="">Delete</a>
+                            <a href="#">ShowItems</a>
+                            <a href="/admin/edit-order/<%= orders[i].ID %>">Edit</a>
+                            <input type="button" onclick="Delete(<%= orders[i].ID %>)" value="Delete">
                         </td>
                     </tr>
                     <% } %>
@@ -48,3 +48,19 @@
     </div>
 
 <%- include('../Component/footer') %>
+
+<script>
+    async function Delete(orderId) {
+        const response = await fetch(`http://localhost:5000/api/order/${orderId}`, {
+            method: 'DELETE'
+        });
+
+        if(!response.ok) {
+            alert("Failed to delete!");
+            return;
+        }
+
+        alert("Delete successful!");
+        window.location.reload();
+    }
+</script>

@@ -43,8 +43,8 @@
                         <td class="ellipsis"><%= games[i].requirement %></td>
                         <td class="ellipsis"><%= games[i].shortDescribe %></td>
                         <td>
-                          <a href="/add-games">Edit</a>
-                          <a href="">Delete</a>
+                            <a href="/admin/edit-game/<%= games[i].ID %>">Edit</a>
+                            <input type="button" onclick="Delete(<%= games[i].ID %>)" value="Delete">
                         </td>
                     </tr>
                     <% } %>
@@ -53,3 +53,19 @@
     </div>
 
 <%- include('../Component/footer') %>
+
+<script>
+    async function Delete(gameId) {
+        const response = await fetch(`http://localhost:5000/api/game/${gameId}`, {
+            method: 'DELETE'
+        });
+
+        if(!response.ok) {
+            alert("Failed to delete!");
+            return;
+        }
+
+        alert("Delete successful!");
+        window.location.reload();
+    }
+</script>

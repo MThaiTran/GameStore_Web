@@ -24,7 +24,7 @@ async function getById(req, res) {
 async function create(req, res) {
   try {
     await Order.createOrder(req.body);
-    res.status(201).json({ message: 'Order created successfully' });
+    res.status(201).json({ message: 'Order created successfully'});
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -57,7 +57,7 @@ async function createFromUser(req, res) {
       return res.status(404).json({ message: 'Cart not found for user' });
     }
 
-    const orderId = await Order.createOrderFromCart(cart.ID, req.body);
+    const orderId = await Order.createOrderFromCart(cart.ID);
     res.status(201).json({ message: 'Order created successfully from user cart', orderId });
   } catch (err) {
     res.status(500).json({ error: err.message });

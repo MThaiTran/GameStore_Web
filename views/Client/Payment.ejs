@@ -5,15 +5,15 @@
                 <div class="leftPayment">
                     <h1>Credit card</h1>
                     <br>
-                    <form action="">
+                    <form id="paymentForm">
                         <label for="">Name:</label> <br>
-                        <input type="text" class="signintextfield" value="<%= user.name %>"><br>
+                        <input type="text" class="signintextfield" value="<%= user.name %>" required><br>
                         <label for="">Card Number:</label> <br>
-                        <input type="text" class="signintextfield"> <br>
+                        <input type="text" class="signintextfield" required> <br>
                         <label for="">Expiration:</label> <br>
-                        <input type="text" class="signintextfield"> <br>
+                        <input type="text" class="signintextfield" required> <br>
                         <label for="">CCV:</label> <br>
-                        <input type="text" class="signintextfield"> <br>
+                        <input type="text" class="signintextfield" required> <br>
                     </form>
                 </div>
 
@@ -35,7 +35,7 @@
                         <h1>Items : <%= order.amount %></h1>
                         <h1>Price : $ <%= order.totalPrice %></h1>
                         <br>
-                        <input type="button" value="Checkout" class="signinbutton" onclick="CheckOut()">
+                        <input type="submit" value="Checkout" class="signinbutton" onclick="CheckOut()">
                     </fieldset>
                 </div>
                 
@@ -43,3 +43,72 @@
             
         </div>
 <%- include('../Component/footer') %>
+
+<script>
+    async function CheckOut() {
+        const user = JSON.parse(localStorage.getItem('loggedInUser'));
+        const userId = user.ID;
+        const order = <%- JSON.stringify(order) %>;
+        const orderItems = <%- JSON.stringify(orderItems) %>;
+        
+        // Get form data
+        const form = document.getElementById('paymentForm');
+        const cardNumber = form.querySelector('input[type="text"]:nth-of-type(2)').value;
+        const expiration = form.querySelector('input[type="text"]:nth-of-type(3)').value;
+        const ccv = form.querySelector('input[type="text"]:nth-of-type(4)').value;
+
+        // Basic credit card validation
+        // if (!validateCard(cardNumber, expiration, ccv)) {
+        //     alert('Please enter valid credit card information');
+        //     return;
+        // }
+
+        try {
+            const response = await fetch('http://localhost:5000/api/order/<%= order.ID %>', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    totalPrice: <%= order.totalPrice%>,
+                    UserID: userId,
+                    amount: <%= order.amount%>,
+                    clientName: user.name,
+                    clientMail: user.email,
+                    cardNumber: cardNumber,
+                    cardExp: expiration,
+                    orderDate: new Date(),
+                    status: 'Successful',
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update order');
+            }
+
+            // Redirect to success page or show success message
+            alert("Successful!")
+
+            for(let i=0; i<orderItems.length; i++){
+                AddToCollection('library', orderItems[i].ID);
+            }
+            
+
+            // window.location.href = '/payment/success';
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Payment failed. Please try again.');
+        }
+    }
+
+    function validateCard(cardNumber, expiration, ccv) {
+        // Basic validation rules
+        const cardNumberRegex = /^\d{16}$/;
+        const expirationRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+        const ccvRegex = /^\d{3,4}$/;
+
+        return cardNumberRegex.test(cardNumber) &&
+               expirationRegex.test(expiration) &&
+               ccvRegex.test(ccv);
+    }
+</script>

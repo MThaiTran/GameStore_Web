@@ -1,0 +1,111 @@
+<%- include('../Component/header') %>
+
+    <div id="content">
+        <div class="centre" style="width: 600px;">
+            <form action="" class="addGame" id="addOrder">
+                <h1>Add new game</h1>
+                <label for="gameName">UserID: </label>
+                <input type="number" id="UserID" name="name" required> <br>
+
+                <label for="games">Choose Games:</label>
+                <select id="games" name="games[]" multiple size="5">
+                    <% for(let i=0; i<games.length; i++) { %>
+                        <option value="<%= games[i].ID %> " data-price="<%= games[i].price %>" >
+                            <%= games[i].name %>
+                        </option>
+                    <% } %>
+                </select> <br>
+
+                <label for="amount">Amount: </label>
+                <input type="number" id="amount" name="amount" readonly> <br>
+
+                <label for="totalPrice">Total Price: </label>
+                <input type="number" id="totalPrice" name="totalPrice" > <br>
+
+                <label for="developer">ClientName: </label>
+                <input type="text" id="developer" name="dev" required> <br>
+
+                <label for="publisher">ClientMail: </label>
+                <input type="text" id="publisher" name="publisher" required> <br>
+
+                <label for="cartNumber">CardNumber: </label>
+                <input type="number" id="cardNumber" name="cardNumber" required> <br>
+
+                <label for="cartExp">CardExp: </label>
+                <input type="number" id="cardExp" name="cardExp" required> <br>
+
+                <label for="orderDate">OrderDate: </label>
+                <input type="date" id="orderDate" name="orderDate" required> <br>
+
+                <label for="status">Status: </label>
+                <input type="text" id="status" name="status" required> <br>
+
+                <br>
+                <button type="submit" class="signinbutton">Save</button>
+                <a href="/admin/games" class="signinbutton">Go back</a>
+            </form>
+        </div>
+    </div>
+    <%- include('../Component/footer') %>
+
+<script>
+    // Function to calculate amount and total price
+    function calculateTotal() {
+        const gamesSelect = document.getElementById('games');
+        const selectedOptions = gamesSelect.selectedOptions;
+        let totalPrice = 0;
+        
+        // Calculate total price from selected games
+        for (let option of selectedOptions) {
+            totalPrice += parseInt(option.dataset.price);
+        }
+        
+        // Update amount and total price fields
+        document.getElementById('amount').value = selectedOptions.length;
+        document.getElementById('totalPrice').value = totalPrice;
+    }
+
+    // Add event listener to games select
+    document.getElementById('games').addEventListener('change', calculateTotal);
+
+    // Form submission handler
+    document.getElementById('addOrder').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Get selected games and convert to array of game IDs
+        const selectedGames = Array.from(document.getElementById('games').selectedOptions).map(option => option.value.trim());
+        
+        const orderData = {
+            totalPrice: document.getElementById('totalPrice').value,
+            UserID: document.getElementById('UserID').value,
+            amount: document.getElementById('amount').value,
+            clientName: document.getElementById('developer').value,
+            clientMail: document.getElementById('publisher').value,
+            cardNumber: document.getElementById('cardNumber').value,
+            cardExp: document.getElementById('cardExp').value,
+            orderDate: document.getElementById('orderDate').value,
+            status: document.getElementById('status').value,
+            games: selectedGames
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/api/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to create order');
+            }
+
+            alert('Order created successfully!');
+            window.location.href = '/admin/orders';
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to create order. Please try again.');
+        }
+    });
+</script>

@@ -731,12 +731,12 @@ form a{
     text-align: right;
 }
 
-.signinbutton#addToCart, .signinbutton#addToWishlist{
+.signinbutton#addTocart, .signinbutton#addTowishlist{
     color: black;
     background-color: #FFE785;
 }
 
-.signinbutton#addToCart:hover, .signinbutton#addToWishlist:hover{
+.signinbutton#addTocart:hover, .signinbutton#addTowishlist:hover{
     color: black;
     background-color: #ffe800;
 }

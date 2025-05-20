@@ -4,7 +4,7 @@ const controller = require('../controllers/LibraryController');
 
 router.get('/', controller.getLibrary);
 router.get('/items', controller.getItems);
-router.post('/items', controller.addItem);
+router.post('/', controller.addItem);
 router.delete('/items/:gameId', controller.removeItem);
 
 module.exports = router;

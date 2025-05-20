@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const {authenticate} = require('../../middlewares/auth');
+
 const gameController = require('../../controllers/GameController');
 
 const prefix = 'Client';
@@ -56,7 +58,7 @@ router.get('/games/:gameID', async (req, res) => {
     }
 });
   
-router.get('/profile/:userId', (req,res) => {
+router.get('/profile/:userId', authenticate, (req,res) => {
   res.render(prefix + '/UserProfile', { title: 'User Profile' });
 });
 
@@ -177,4 +179,8 @@ router.get('/bill/:orderId', async (req,res) => {
     res.status(500).send('Lỗi server');
   }
 });
+
+
+
+
 module.exports = router;

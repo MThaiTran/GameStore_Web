@@ -1,0 +1,58 @@
+<%- include('../Component/header') %>
+
+<div id="content">
+    <div class="centre" style="width: 600px;">
+        <form class="addGenre" id="editGenre">
+            <h1>Edit genre</h1>
+            <label for="genreName">Name: </label>
+            <input type="text" id="name" name="name" class="addNewTextField" value="<%= genre.name %>" required> <br>
+
+            <label for="description">Description: </label>
+            <textarea id="description" name="description" class="addNewTextField"><%= genre.description %></textarea> <br>
+
+            <br>
+            <input type="submit" value="Save" class="signinbutton">
+            <a href="/admin/genres" class="signinbutton">Go back</a>
+        </form>
+    </div>
+</div>
+
+<%- include('../Component/footer') %>
+<script>
+    document.getElementById('editGenre').addEventListener('submit', async function(e) {
+       e.preventDefault();
+       // Get form data
+       const genreData = {
+           name: document.getElementById('name').value
+       };
+
+       // Validate required fields
+       // if (!gameData.name || !gameData.releaseDate || !gameData.latestUpdate || 
+       //     !gameData.developer || !gameData.publisher || !gameData.price || 
+       //     !gameData.GenreID || !gameData.imgPath || !gameData.description || 
+       //     !gameData.requirements || !gameData.shortDescribe) {
+       //     alert('Please fill in all required fields!');
+       //     return;
+       // }
+
+       try {
+           const response = await fetch(`http://localhost:5000/api/genre/<%= genre.ID %>`, {
+               method: 'PUT',
+               headers: {
+                   'Content-Type': 'application/json'
+               },
+               body: JSON.stringify(genreData)
+           });
+
+           if (!response.ok) {
+               throw new Error('Failed to create genre');
+           }
+
+           alert('Genre created successfully!');
+           window.location.href = '/admin/genres';
+       } catch (error) {
+           console.error('Error:', error);
+           alert('Failed to create Genre. Please try again.');
+       }
+   });
+</script>

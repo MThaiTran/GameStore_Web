@@ -39,13 +39,14 @@
                         <td><%= users[i].password %></td>
                         <td><%= users[i].RoleID %></td>
                         <td>
-                            <a href="/admin/wishlist">Wishlist</a>
-                            <a href="AdminPageUsersCart.html">Cart</a>
-                            <a href="AdminPageUsersLibrary.html">Library</a>
+                            <a href="/wishlist/<%= users[i].ID %>">Wishlist</a>
+                            <a href="/cart/<%= users[i].ID %>">Cart</a>
+                            <a href="/library/<%= users[i].ID %>">Library</a>
                         </td>
                         <td>
-                            <a href="/admin/edit-user">Edit</a>
-                            <a href="/admin/delete-user">Delete</a>
+                            <a href="/admin/edit-user/<%= users[i].ID %>">Edit</a>
+                            <!-- <a href="" onclick="Delete(<%- JSON.stringify(users[i]) %>)">Delete</a> -->
+                            <input type="button" onclick="Delete(<%= users[i].ID %>)" value="Delete">
                         </td>
                     </tr>
                 <% } %>
@@ -54,3 +55,22 @@
         </div>
     </div>
 <%- include('../Component/footer') %>
+
+<script>
+    async function Delete(userId) {
+        // const user = JSON.parse(userObj);
+        // console.log(user);
+        const response = await fetch(`http://localhost:5000/api/user/${userId}`,{
+            method: 'DELETE'
+        });
+
+        console.log(response.ok);
+        if(!response.ok){
+            alert("Failed to delete !");
+            return;
+        }
+
+        alert("Delete successful !");
+        window.location.href = ``;
+    }
+</script>

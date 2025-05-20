@@ -23,8 +23,8 @@
                         <td class="ellipsis"><%= genres[i].name %></td>
                         <td class="ellipsis"><%= genres[i].description ? genres[i].description : 'N/A' %></td>
                         <td>
-                          <a href="/add-genre">Edit</a>
-                          <a href="">Delete</a>
+                            <a href="/admin/edit-genre/<%= genres[i].ID %>">Edit</a>
+                            <input type="button" onclick="Delete(<%= genres[i].ID %>)" value="Delete">
                         </td>
                     </tr>
                     <% } %>
@@ -33,3 +33,19 @@
     </div>
 
 <%- include('../Component/footer') %>
+
+<script>
+    async function Delete(genreId) {
+        const response = await fetch(`http://localhost:5000/api/genre/${genreId}`, {
+            method: 'DELETE'
+        });
+
+        if(!response.ok) {
+            alert("Failed to delete!");
+            return;
+        }
+
+        alert("Delete successful!");
+        window.location.reload();
+    }
+</script>

@@ -17,6 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 const authRoutes = require('./routes/AuthRoutes');
 app.use('/auth', authRoutes);
 
+// const authController = require('./routes/AuthRoutes');
+// app.all('*', authController.addHeader);
+
+// app.all('*', authController.addHeader);
+
 // Upload routes (không yêu cầu token)
 // const uploadRoutes = require('./routes/upload');
 // app.use('/api/upload', uploadRoutes);

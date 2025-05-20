@@ -4,7 +4,7 @@ const controller = require('../controllers/WishlistController');
 
 router.get('/', controller.getWishlist);                    // /api/user/:userId/wishlist
 router.get('/items', controller.getItems);                  // /api/user/:userId/wishlist/items
-router.post('/items', controller.addItem);                  // /api/user/:userId/wishlist/items
+router.post('/', controller.addItem);                  // /api/user/:userId/wishlist/items
 router.delete('/items/:gameId', controller.removeItem);     // /api/user/:userId/wishlist/items/:gameId
 
 module.exports = router;
