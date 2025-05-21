@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const {authenticate} = require('../../middlewares/auth');
+const {authenticate, authorize} = require('../../middlewares/auth');
 
 const gameController = require('../../controllers/GameController');
 
@@ -62,13 +62,23 @@ router.get('/profile/:userId', authenticate, (req,res) => {
   res.render(prefix + '/UserProfile', { title: 'User Profile' });
 });
 
-router.get('/cart/:userId', async (req,res) => {
+router.get('/cart/:userId', authenticate, async (req,res) => {
   try {
     const userId = req.params.userId;
-    const response = await axios.get(`http://localhost:5000/api/user/${userId}/cart`);
+    const response = await axios.get(
+      `http://localhost:5000/api/user/${userId}/cart`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const cart = response.data;
 
-    const itemResponse = await axios.get(`http://localhost:5000/api/user/${userId}/cart/items`);
+    const itemResponse = await axios.get(
+      `http://localhost:5000/api/user/${userId}/cart/items`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const itemFK = itemResponse.data.data;
 
     let cartItems = [];
@@ -84,15 +94,28 @@ router.get('/cart/:userId', async (req,res) => {
   }
 });
 
-router.get('/wishlist/:userId', async (req,res) => {
+router.get('/wishlist/:userId', authenticate, async (req,res) => {
   try {
     const userId = req.params.userId;
-    const response = await axios.get(`http://localhost:5000/api/user/${userId}/wishlist`);
+    const response = await axios.get(
+      `http://localhost:5000/api/user/${userId}/wishlist`,
+      {
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      }
+    );
     const wishlist = response.data;
 
-    const itemResponse = await axios.get(`http://localhost:5000/api/user/${userId}/wishlist/items`);
+    const itemResponse = await axios.get(
+      `http://localhost:5000/api/user/${userId}/wishlist/items`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const itemFK = itemResponse.data.data;
 
+    // console.log(req.session.token);
     let wishlistItems = [];
     for (let i = 0; i < itemFK.length; i++) {
       const gameResponse = await axios.get(`http://localhost:5000/api/game/${itemFK[i].GameID}`);
@@ -106,13 +129,23 @@ router.get('/wishlist/:userId', async (req,res) => {
   }
 }); 
 
-router.get('/library/:userId', async (req,res) => {
+router.get('/library/:userId', authenticate, async (req,res) => {
   try {
     const userId = req.params.userId;
-    const response = await axios.get(`http://localhost:5000/api/user/${userId}/library`);
+    const response = await axios.get(`
+      http://localhost:5000/api/user/${userId}/library`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const library = response.data;
 
-    const itemResponse = await axios.get(`http://localhost:5000/api/user/${userId}/library/items`);
+    const itemResponse = await axios.get(
+      `http://localhost:5000/api/user/${userId}/library/items`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const itemFK = itemResponse.data.data;
 
     let libraryItems = [];
@@ -128,13 +161,23 @@ router.get('/library/:userId', async (req,res) => {
   }
 });
 
-router.get('/payment/:orderId', async (req,res) => {
+router.get('/payment/:orderId', authenticate, async (req,res) => {
   try {
     const orderId = req.params.orderId;
-    const response = await axios.get(`http://localhost:5000/api/order/${orderId}`);
+    const response = await axios.get(
+      `http://localhost:5000/api/order/${orderId}`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const order = response.data;
 
-    const itemResponse = await axios.get(`http://localhost:5000/api/order/${orderId}/items`);
+    const itemResponse = await axios.get(
+      `http://localhost:5000/api/order/${orderId}/items`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const itemFK = itemResponse.data;
 
     console.log(itemFK);
@@ -144,7 +187,12 @@ router.get('/payment/:orderId', async (req,res) => {
       orderItems[i] = gameResponse.data;
     }
 
-    const userResponse = await axios.get(`http://localhost:5000/api/user/${order.UserID}`);
+    const userResponse = await axios.get(
+      `http://localhost:5000/api/user/${order.UserID}`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const user = userResponse.data;
 
     res.render(prefix + '/Payment', {order, orderItems, user });  
@@ -154,13 +202,23 @@ router.get('/payment/:orderId', async (req,res) => {
   }
 });
 
-router.get('/bill/:orderId', async (req,res) => {
+router.get('/bill/:orderId', authenticate, async (req,res) => {
   try {
     const orderId = req.params.orderId;
-    const response = await axios.get(`http://localhost:5000/api/order/${orderId}`);
+    const response = await axios.get(
+      `http://localhost:5000/api/order/${orderId}`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const order = response.data;
 
-    const itemResponse = await axios.get(`http://localhost:5000/api/order/${orderId}/items`);
+    const itemResponse = await axios.get(
+      `http://localhost:5000/api/order/${orderId}/items`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const itemFK = itemResponse.data;
 
     console.log(itemFK);
@@ -170,7 +228,12 @@ router.get('/bill/:orderId', async (req,res) => {
       orderItems[i] = gameResponse.data;
     }
 
-    const userResponse = await axios.get(`http://localhost:5000/api/user/${order.UserID}`);
+    const userResponse = await axios.get(
+      `http://localhost:5000/api/user/${order.UserID}`,{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
     const user = userResponse.data;
 
     res.render(prefix + '/Bill', {order, orderItems, user });  

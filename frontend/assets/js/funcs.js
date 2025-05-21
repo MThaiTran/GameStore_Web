@@ -22,10 +22,33 @@ window.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-function LogOut() {
-  localStorage.removeItem("loggedInUser");
-  localStorage.removeItem("token");
-  location.href = "SignIn.html";
+async function LogOut() {
+  try {
+      // Gửi yêu cầu tới API /auth/logout
+      const response = await fetch('/auth/logout', {
+          method: 'POST', // Hoặc GET tùy thuộc vào API của bạn
+          headers: {
+              'Content-Type': 'application/json',
+              // Nếu API yêu cầu token trong header
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+      });
+
+      // Kiểm tra phản hồi từ server
+      if (response.ok) {
+          // Xóa dữ liệu trong localStorage
+          localStorage.removeItem("loggedInUser");
+          localStorage.removeItem("token");
+          // Chuyển hướng về trang đăng nhập
+          location.href = "/signin";
+      } else {
+          console.error('Đăng xuất thất bại:', response.statusText);
+          alert('Có lỗi xảy ra khi đăng xuất. Vui lòng thử lại.');
+      }
+  } catch (error) {
+      console.error('Lỗi khi gọi API đăng xuất:', error);
+      alert('Không thể kết nối tới server. Vui lòng kiểm tra lại.');
+  }
 }
 
 function DropDownMenu() {

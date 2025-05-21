@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const {authenticate: authenticate, authorize} = require('../../middlewares/auth');
 
 const prefix = 'Admin';
 // Render trang thêm game
-router.get('/users', async (req, res) => {
+router.get('/users', authenticate, authorize([1]), async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:5000/api/user?page=1&limit=5');
+        const response = await axios.get(
+          'http://localhost:5000/api/user?page=1&limit=100',{
+            headers: {
+              Authorization: `Bearer ${req.session.token}`
+            }
+          });
         const users = response.data.data; // lấy phần `data` từ JSON trả về
         
         res.render(prefix + '/Users', {users});
@@ -16,14 +22,19 @@ router.get('/users', async (req, res) => {
       }
 });
 
-router.get('/add-user', async (req, res) => {
+router.get('/add-user', authenticate, authorize([1]), async (req, res) => {
     res.render(prefix + '/Add-User');
 });
 
-router.get('/edit-user/:userId', async (req, res) => {
+router.get('/edit-user/:userId', authenticate, authorize([1]), async (req, res) => {
     const userId = req.params.userId;
     try {
-        const response = await axios.get(`http://localhost:5000/api/user/${userId}`);
+        const response = await axios.get(
+          `http://localhost:5000/api/user/${userId}`,{
+            headers: {
+              Authorization: `Bearer ${req.session.token}`
+            }
+          });
         const user = response.data;
         res.render(prefix + '/Edit-User', {user});
     } catch (error) {
@@ -32,9 +43,7 @@ router.get('/edit-user/:userId', async (req, res) => {
     }
 });
 
-
-
-router.get('/games', async (req, res) => {
+router.get('/games', authenticate, authorize([1]), async (req, res) => {
     try {
         const response = await axios.get('http://localhost:5000/api/game?page=1&limit=15');
         const games = response.data.data; // lấy phần `data` từ JSON trả về
@@ -46,14 +55,19 @@ router.get('/games', async (req, res) => {
       }
 });
 
-router.get('/add-game', async (req, res) => {
+router.get('/add-game', authenticate, authorize([1]), async (req, res) => {
     res.render(prefix + '/Add-Game');
 });
 
-router.get('/edit-game/:gameId', async (req, res) => {
+router.get('/edit-game/:gameId', authenticate, authorize([1]), async (req, res) => {
   const gameId = req.params.gameId;
   try {
-      const response = await axios.get(`http://localhost:5000/api/game/${gameId}`);
+      const response = await axios.get(
+        `http://localhost:5000/api/game/${gameId}`,{
+          headers: {
+            Authorization: `Bearer ${req.session.token}`
+          }
+        });
       const game = response.data;
       res.render(prefix + '/Edit-Game', {game});
   } catch (error) {
@@ -62,9 +76,14 @@ router.get('/edit-game/:gameId', async (req, res) => {
   }
 });
 
-router.get('/genres', async (req, res) => {
+router.get('/genres', authenticate, authorize([1]), async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:5000/api/genre?page=1&limit=15');
+        const response = await axios.get(
+          'http://localhost:5000/api/genre?page=1&limit=15',{
+            headers: {
+              Authorization: `Bearer ${req.session.token}`
+            }
+          });
         const genres = response.data.data; // lấy phần `data` từ JSON trả về
         
         res.render(prefix + '/Genres', {genres});
@@ -74,14 +93,19 @@ router.get('/genres', async (req, res) => {
       }
 });
 
-router.get('/add-genre', async (req, res) => {
+router.get('/add-genre', authenticate, authorize([1]), async (req, res) => {
     res.render(prefix + '/Add-Genre');
 });
 
-router.get('/edit-genre/:genreId', async (req, res) => {
+router.get('/edit-genre/:genreId', authenticate, authorize([1]), async (req, res) => {
   const genreId = req.params.genreId;
   try {
-      const response = await axios.get(`http://localhost:5000/api/genre/${genreId}`);
+      const response = await axios.get(
+        `http://localhost:5000/api/genre/${genreId}`,{
+          headers: {
+            Authorization: `Bearer ${req.session.token}`
+          }
+        });
       const genre = response.data;
       res.render(prefix + '/Edit-Genre', {genre});
   } catch (error) {
@@ -90,9 +114,14 @@ router.get('/edit-genre/:genreId', async (req, res) => {
   }
 });
 
-router.get('/orders', async (req, res) => {
+router.get('/orders', authenticate, authorize([1]), async (req, res) => {
   try {
-      const response = await axios.get('http://localhost:5000/api/order?page=1&limit=20');
+      const response = await axios.get(
+        'http://localhost:5000/api/order?page=1&limit=20',{
+          headers: {
+            Authorization: `Bearer ${req.session.token}`
+          }
+        });
       const orders = response.data.data; // lấy phần `data` từ JSON trả về
       
      
@@ -103,7 +132,7 @@ router.get('/orders', async (req, res) => {
     }
 });
 
-router.get('/add-order', async (req, res) => {
+router.get('/add-order', authenticate, authorize([1]), async (req, res) => {
   try {
     const responseGame = await axios.get('http://localhost:5000/api/game?page=1&limit=20');
     const games = responseGame.data.data; // lấy phần `data` từ JSON trả về
@@ -116,13 +145,23 @@ router.get('/add-order', async (req, res) => {
 }
 });
 
-router.get('/edit-order/:orderId', async (req, res) => {
+router.get('/edit-order/:orderId', authenticate, authorize([1]), async (req, res) => {
   const orderId = req.params.orderId;
   try {
-      const response = await axios.get(`http://localhost:5000/api/order/${orderId}`);
+      const response = await axios.get(
+        `http://localhost:5000/api/order/${orderId}`,{
+          headers: {
+            Authorization: `Bearer ${req.session.token}`
+          }
+        });
       const order = response.data;
 
-      const responseTmp = await axios.get(`http://localhost:5000/api/order/${orderId}/items`);
+      const responseTmp = await axios.get(
+        `http://localhost:5000/api/order/${orderId}/items`,{
+          headers: {
+            Authorization: `Bearer ${req.session.token}`
+          }
+        });
       const tmp = responseTmp.data;
       const orderItems = [];
 

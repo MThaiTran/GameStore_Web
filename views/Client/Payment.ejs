@@ -67,6 +67,7 @@
             const response = await fetch('http://localhost:5000/api/order/<%= order.ID %>', {
                 method: 'PUT',
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -79,11 +80,12 @@
                     cardExp: expiration,
                     orderDate: new Date(),
                     status: 'Successful',
+                    games: [] 
                 })
             });
 
             if (!response.ok) {
-                throw new Error('Failed to update order');
+                throw new Error(error);
             }
 
             // Redirect to success page or show success message

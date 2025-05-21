@@ -2,12 +2,25 @@ const express = require('express');
 const { connectDB } = require('./config/db');
 const cors = require('cors');
 const path = require('path');
+const session = require('express-session');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 connectDB();
+
+// Session configuration
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false, // Use secure cookies in production
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
+}));
 
 app.use(cors());
 app.use(express.json());
@@ -48,8 +61,6 @@ app.use('/', clientViewRoutes);
 // API Routes (JSON Data)
 const userRoutes = require('./routes/userRoutes');
 app.use('/api/user', userRoutes);
-const cardRoutes = require('./routes/CardRoutes');
-app.use('/api/card', cardRoutes);
 const roleRoutes = require('./routes/RoleRoutes');
 app.use('/api/role', roleRoutes);
 const orderRoutes = require('./routes/OrderRoutes');
