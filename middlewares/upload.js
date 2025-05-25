@@ -1,24 +1,36 @@
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 // Cấu hình storage cho multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/') // Thư mục lưu trữ file
+        // Tạo thư mục dựa trên folder name từ request
+        const folderName = req.body.folderName || 'default';
+        const uploadPath = path.join('frontend', 'assets', 'Images', folderName);
+        
+        // Tạo thư mục nếu chưa tồn tại
+        if (!fs.existsSync(uploadPath)) {
+            fs.mkdirSync(uploadPath, { recursive: true });
+        }
+        
+        cb(null, uploadPath);
     },
     filename: function (req, file, cb) {
-        // Lấy tên file từ field name trong form-data
-        const customFileName = file.originalname.split('.')[0]; // Lấy tên file không có extension
-        const fileExt = path.extname(file.originalname); // Lấy extension
-
-        if (!customFileName) {
-            // Nếu không có tên, tạo tên unique
-            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-            return cb(null, file.fieldname + '-' + uniqueSuffix + fileExt);
+        // Sử dụng tên file cố định dựa trên fieldname
+        const fieldName = file.fieldname;
+        let fileName;
+        
+        if (fieldName === 'logo') {
+            fileName = 'Logo.png';
+        } else if (fieldName.startsWith('sp')) {
+            const spNumber = fieldName.replace('sp', '');
+            fileName = `Sp${spNumber}.png`;
+        } else {
+            fileName = file.originalname;
         }
-
-        // Sử dụng tên file gốc
-        cb(null, customFileName + fileExt);
+        
+        cb(null, fileName);
     }
 });
 

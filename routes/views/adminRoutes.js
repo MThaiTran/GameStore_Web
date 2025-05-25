@@ -97,6 +97,10 @@ router.get('/add-genre', authenticate, authorize([1]), async (req, res) => {
     res.render(prefix + '/Add-Genre');
 });
 
+router.get('/upload-images', authenticate, authorize([1]), async (req, res) => {
+  res.render(prefix + '/Upload-Images');
+});
+
 router.get('/edit-genre/:genreId', authenticate, authorize([1]), async (req, res) => {
   const genreId = req.params.genreId;
   try {

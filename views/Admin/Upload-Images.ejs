@@ -1,0 +1,118 @@
+<%- include('../Component/header') %>
+
+    <div id="content">
+        <div class="centre" style="width: 600px;">
+            <form action="" class="addGame" id="uploadImagesForm">
+                <h1>Upload Game Images</h1>
+                
+                <label for="folderName">Folder Name: </label>
+                <input type="text" id="folderName" name="folderName" required> <br>
+
+                <label for="logo">Logo Image (Logo.png): </label>
+                <input type="file" id="logo" name="logo" accept="image/*" required> <br>
+
+                <label for="sp1">Screenshot 1 (Sp1.png): </label>
+                <input type="file" id="sp1" name="sp1" accept="image/*" required> <br>
+
+                <label for="sp2">Screenshot 2 (Sp2.png): </label>
+                <input type="file" id="sp2" name="sp2" accept="image/*" required> <br>
+
+                <label for="sp3">Screenshot 3 (Sp3.png): </label>
+                <input type="file" id="sp3" name="sp3" accept="image/*" required> <br>
+
+                <label for="sp4">Screenshot 4 (Sp4.png): </label>
+                <input type="file" id="sp4" name="sp4" accept="image/*" required> <br>
+
+                <label for="sp5">Screenshot 5 (Sp5.png): </label>
+                <input type="file" id="sp5" name="sp5" accept="image/*" required> <br>
+
+                <label for="sp6">Screenshot 6 (Sp6.png): </label>
+                <input type="file" id="sp6" name="sp6" accept="image/*" required> <br>
+
+                <br>
+                <button type="submit" class="signinbutton">Upload Images</button>
+                <a href="/admin/games" class="signinbutton">Go back</a>
+            </form>
+        </div>
+    </div>
+    <%- include('../Component/footer') %>
+
+<script>
+    // Function to ensure file has proper name format (capitalized first letter and .png extension)
+    function ensurePNG(file, fieldName) {
+        if (!file) return null;
+        
+        let newFileName;
+        if (fieldName === 'logo') {
+            newFileName = 'Logo.png';
+        } else if (fieldName.startsWith('sp')) {
+            const number = fieldName.replace('sp', '');
+            newFileName = `Sp${number}.png`;
+        } else {
+            newFileName = file.name.split('.')[0] + '.png';
+        }
+        
+        return new File([file], newFileName, { type: 'image/png' });
+    }
+
+    document.getElementById('uploadImagesForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Create FormData object
+        const formData = new FormData();
+        
+        // Add folder name
+        const folderName = document.getElementById('folderName').value;
+        if (!folderName) {
+            alert('Please enter folder name');
+            return;
+        }
+        formData.append('folderName', folderName);
+        
+        // Add all image files with proper names
+        const logoFile = ensurePNG(document.getElementById('logo').files[0], 'logo');
+        if (!logoFile) {
+            alert('Please select logo image');
+            return;
+        }
+        formData.append('logo', logoFile);
+
+        // Add screenshots with proper names
+        for (let i = 1; i <= 6; i++) {
+            const spFile = ensurePNG(document.getElementById(`sp${i}`).files[0], `sp${i}`);
+            if (!spFile) {
+                alert(`Please select screenshot ${i}`);
+                return;
+            }
+            formData.append(`sp${i}`, spFile);
+        }
+
+        try {
+            const response = await fetch('http://localhost:5000/api/upload/folder', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to upload images');
+            }
+
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('Images uploaded successfully!');
+                console.log('Uploaded files:', result.data.files);
+                window.location.href = '/admin/games';
+            } else {
+                throw new Error(result.message || 'Upload failed');
+            }
+        } 
+        catch (error) {
+            console.error('Error:', error);
+            alert('Failed to upload images. Please try again.');
+        }
+    });
+</script> 

@@ -36,8 +36,8 @@ app.use('/auth', authRoutes);
 // app.all('*', authController.addHeader);
 
 // Upload routes (không yêu cầu token)
-// const uploadRoutes = require('./routes/upload');
-// app.use('/api/upload', uploadRoutes);
+const uploadRoutes = require('./routes/upload');
+app.use('/api/upload', uploadRoutes);
 
 // Middleware kiểm tra token áp dụng sau login
 // const { authenticate } = require('./middlewares/auth');

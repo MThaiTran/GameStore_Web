@@ -133,4 +133,78 @@ exports.uploadGameImage = async (req, res) => {
             error: error.message
         });
     }
+};
+
+// Upload folder with logo and screenshots
+exports.uploadFolderWithImages = async (req, res) => {
+    try {
+        if (!req.files) {
+            return res.status(400).json({
+                success: false,
+                message: 'Không tìm thấy file ảnh'
+            });
+        }
+
+        // Kiểm tra các file bắt buộc
+        const requiredFiles = ['logo', 'sp1', 'sp2', 'sp3', 'sp4', 'sp5', 'sp6'];
+        
+        // Đếm tổng số file đã upload
+        const totalFiles = Object.values(req.files).reduce((total, files) => total + files.length, 0);
+
+        // Kiểm tra số lượng file
+        if (totalFiles !== 7) {
+            return res.status(400).json({
+                success: false,
+                message: 'Cần upload đúng 7 ảnh (1 logo và 6 ảnh screenshot)'
+            });
+        }
+
+        // Kiểm tra các file bắt buộc
+        const missingFiles = requiredFiles.filter(field => !req.files[field]);
+
+        if (missingFiles.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: `Thiếu các file: ${missingFiles.join(', ')}`
+            });
+        }
+
+        const folderName = req.body.folderName || 'default';
+
+        // Trả về thông tin các file đã upload
+        const files = requiredFiles.map(field => {
+            const file = req.files[field][0];
+            let filename;
+            if (field === 'logo') {
+                filename = 'Logo.png';
+            } else if (field.startsWith('sp')) {
+                const number = field.replace('sp', '');
+                filename = `Sp${number}.png`;
+            } else {
+                filename = file.filename;
+            }
+
+            return {
+                fieldname: field,
+                filename: filename,
+                path: `frontend/assets/Images/${folderName}/${filename}`,
+                size: file.size
+            };
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Upload ảnh thành công',
+            data: {
+                folderName: folderName,
+                files: files
+            }
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Lỗi khi upload ảnh',
+            error: error.message
+        });
+    }
 }; 
