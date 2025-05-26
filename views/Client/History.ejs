@@ -1,12 +1,5 @@
 <%- include('../Component/header') %>
     <div id="content">
-        <div class="centre" style="width: 1300px;">
-            <a href="/admin/users" class="signinbutton">UserList</a>
-            <a href="/admin/games" class="signinbutton">GameList</a>
-            <a href="/admin/genres" class="signinbutton">GenreList</a>
-            <a href="/admin/orders" class="signinbutton">OrderList</a>
-            <a href="/admin/add-order" class="signinbutton" style="float: right;">Add new</a>
-        </div>
             <div class="centre" style="width: 1300px;">
                 <h1>GAMES</h1>
                 <table class="userListTable">
@@ -36,11 +29,7 @@
                         <td class="ellipsis"><%= orders[i].cardExp %></td>
                         <td class="ellipsis"><%= orders[i].orderDate.substring(0,10) %></td>
                         <td class="ellipsis"><%= orders[i].status %></td>
-                        <td>
-                            <!-- <a href="#">ShowItems</a> -->
-                            <a href="/admin/edit-order/<%= orders[i].ID %>">Edit</a>
-                            <input type="button" onclick="Delete(<%= orders[i].ID %>)" value="Delete">
-                        </td>
+                        <td class="ellipsis"><a href="/bill/<%= orders[i].ID %>">Show</a></td>
                     </tr>
                     <% } %>
                 </table>
@@ -50,21 +39,5 @@
 <%- include('../Component/footer') %>
 
 <script>
-    async function Delete(orderId) {
-        const response = await fetch(`http://localhost:5000/api/order/${orderId}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-                // 'Content-Type': 'application/json'
-            },
-        });
-
-        if(!response.ok) {
-            alert("Failed to delete!");
-            return;
-        }
-
-        alert("Delete successful!");
-        window.location.reload();
-    }
+    
 </script>

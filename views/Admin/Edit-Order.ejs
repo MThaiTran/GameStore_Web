@@ -2,7 +2,7 @@
 
 <div id="content">
     <div class="centre" style="width: 600px;">
-        <form class="addOrder" id="editOrderForm">
+        <form class="addGame" id="editOrderForm">
             <h1>Edit order</h1>
             <label for="UserID">UserID: </label>
             <input type="number" id="UserID" name="UserID" value="<%= order.UserID %>" required> <br>
@@ -22,7 +22,7 @@
             <input type="number" id="amount" name="amount" value="<%= order.amount %>" readonly> <br>
 
             <label for="totalPrice">Total Price: </label>
-            <input type="number" id="totalPrice" name="totalPrice" value="<%= order.totalPrice %>"> <br>
+            <input type="number" id="totalPrice" name="totalPrice" value="<%= order.totalPrice %>" step="0.01"> <br>
 
             <label for="clientName">ClientName: </label>
             <input type="text" id="clientName" name="clientName" value="<%= order.clientName %>" required> <br>
@@ -31,19 +31,19 @@
             <input type="text" id="clientMail" name="clientMail" value="<%= order.clientMail %>" required> <br>
 
             <label for="cardNumber">CardNumber: </label>
-            <input type="number" id="cardNumber" name="cardNumber" value="<%= order.cardNumber %>" required> <br>
+            <input type="number" id="cardNumber" name="cardNumber" value="<%= order.cardNumber %>" > <br>
 
             <label for="cardExp">CardExp: </label>
-            <input type="number" id="cardExp" name="cardExp" value="<%= order.cardExp %>" required> <br>
+            <input type="date" id="cardExp" name="cardExp" value="<%= order.cardExp.substring(0, 10) %>" > <br>
 
             <label for="orderDate">OrderDate: </label>
-            <input type="date" id="orderDate" name="orderDate" value="<%= order.orderDate %>" required> <br>
+            <input type="date" id="orderDate" name="orderDate" value="<%= order.orderDate.substring(0, 10) %>" required> <br>
 
             <label for="status">Status: </label>
             <select name="status" id="status" required>
-                <option value="pending" <%= order.status === 'pending' ? 'selected' : '' %>>Pending</option>
-                <option value="completed" <%= order.status === 'completed' ? 'selected' : '' %>>Completed</option>
-                <option value="cancelled" <%= order.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                <option value="Pending" <%= order.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                <option value="Successful" <%= order.status === 'Successful' ? 'selected' : '' %>>Successful</option>
+                <option value="Cancelled" <%= order.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
             </select> <br>
 
             <br>
@@ -64,12 +64,12 @@
         
         // Calculate total price from selected games
         for (let option of selectedOptions) {
-            totalPrice += parseInt(option.dataset.price);
+            totalPrice += parseFloat(option.dataset.price);
         }
         
         // Update amount and total price fields
         document.getElementById('amount').value = selectedOptions.length;
-        document.getElementById('totalPrice').value = totalPrice;
+        document.getElementById('totalPrice').value = totalPrice.toFixed(2);
     }
 
     // Add event listener to games select
@@ -82,12 +82,13 @@
         e.preventDefault();
         
         // Get selected games and convert to array of game IDs
-        const selectedGames = Array.from(document.getElementById('games').selectedOptions).map(option => option.value.trim());
+        const selectedGames = Array.from(document.getElementById('games').selectedOptions)
+            .map(option => parseInt(option.value));
         
         const orderData = {
-            totalPrice: document.getElementById('totalPrice').value,
-            UserID: document.getElementById('UserID').value,
-            amount: document.getElementById('amount').value,
+            totalPrice: parseFloat(document.getElementById('totalPrice').value),
+            UserID: parseInt(document.getElementById('UserID').value),
+            amount: parseInt(document.getElementById('amount').value),
             clientName: document.getElementById('clientName').value,
             clientMail: document.getElementById('clientMail').value,
             cardNumber: document.getElementById('cardNumber').value,

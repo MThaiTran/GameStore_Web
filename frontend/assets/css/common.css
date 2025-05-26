@@ -1206,6 +1206,14 @@ form.addGame input{
     margin-left: 20px;
 }
 
+form.addGame select{
+    border-radius: 0px;
+    /* height: 25px; */
+    font-size: 20px;
+    padding: 4px 4px;
+    margin-left: 20px;
+}
+
 .ellipsis {
     /* min-width: 100px; */
     max-width: 90px;
@@ -1218,4 +1226,4 @@ table {
     border-collapse: separate; /* Important */
     border-spacing: 20px 10px; /* horizontal and vertical spacing */
     width: 100%;
-  }
+}

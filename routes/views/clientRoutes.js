@@ -220,7 +220,6 @@ router.get('/bill/:orderId', authenticate, async (req,res) => {
         }
       });
     const itemFK = itemResponse.data;
-
     console.log(itemFK);
     let orderItems = [];
     for (let i = 0; i < itemFK.length; i++) {
@@ -236,6 +235,10 @@ router.get('/bill/:orderId', authenticate, async (req,res) => {
       });
     const user = userResponse.data;
 
+    console.log(user);
+    console.log(order);
+    console.log(orderItems);
+
     res.render(prefix + '/Bill', {order, orderItems, user });  
   } catch (error) {
     console.error('Lỗi khi gọi API:', error.message);
@@ -243,6 +246,26 @@ router.get('/bill/:orderId', authenticate, async (req,res) => {
   }
 });
 
+router.get('/history/:userId', authenticate, async (req,res) => {
+  try {
+    const userId = req.params.userId;
+    const response = await axios.get(
+      'http://localhost:5000/api/order?page=1&limit=20',{
+        headers: {
+          Authorization: `Bearer ${req.session.token}`
+        }
+      });
+    const all = response.data.data; // lấy phần `data` từ JSON trả về
+    // console.log(all);
+    // Lọc ra những order có UserID trùng với userId
+    const orders = all.filter(order => order.UserID === parseInt(userId));
+    // console.log(orders);
+    res.render(prefix + '/History', { orders });
+  } catch (error) {
+    console.error('Lỗi khi gọi API:', error.message);
+    res.status(500).send('Lỗi server');
+  }
+});
 
 
 

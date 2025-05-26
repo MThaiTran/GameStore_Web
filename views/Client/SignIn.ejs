@@ -46,14 +46,14 @@
                 console.log('API Response:', result);
 
                 localStorage.setItem("loggedInUser", JSON.stringify(result.user));
-
                 localStorage.setItem("token", result.token);
 
-                
-                // axios.defaults.headers.common['Authorization'] = `Bearer ${result.token}`;
-                // alert("Login successful!");
-
-                window.location.href = "/";  // hoặc bất cứ trang nào bạn muốn
+                // Check if user is admin (RoleID === 1) and redirect accordingly
+                if (result.user.RoleID === 1) {
+                    window.location.href = "/admin/users";
+                } else {
+                    window.location.href = "/";
+                }
 
             } catch (err) {
                 console.error('Fetch error:', err);

@@ -1,4 +1,3 @@
-
 window.addEventListener("DOMContentLoaded", function() {
   const user = JSON.parse(localStorage.getItem("loggedInUser"));
   const signed = document.getElementById("signedProfilePanel");
@@ -95,6 +94,36 @@ async function RemoveFromCollection(collection_name, gameId){
   } else{
       window.location.href = `/${collection_name}/${userId}`;
   }
+}
+
+async function Search() {
+    const keyword = document.getElementById('searchInput').value;
+    const category = document.getElementById('categoryFilter').value;
+    const sortBy = document.getElementById('sortBy').value;
+    
+    // Build query parameters
+    const params = new URLSearchParams();
+    if (keyword) params.append('keyword', keyword);
+    if (category) params.append('category', category);
+    if (sortBy) params.append('sortBy', sortBy);
+    
+    try {
+        const response = await fetch(`/api/games/search?${params.toString()}`);
+        if (!response.ok) {
+            throw new Error('Search failed');
+        }
+        
+        const games = await response.json();
+        
+        // Redirect to search results page with the results
+        window.location.href = `/search-results?${params.toString()}`;
+        
+        return false; // Prevent form submission
+    } catch (error) {
+        console.error('Search error:', error);
+        alert('An error occurred while searching. Please try again.');
+        return false;
+    }
 }
 
 

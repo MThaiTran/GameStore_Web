@@ -5,7 +5,7 @@ const {authenticate, authorize} = require('../middlewares/auth');
 
 router.use(authenticate);
 
-router.get('/', authorize([1]), controller.getAll);
+router.get('/', controller.getAll);
 router.get('/:id', controller.getById);
 router.post('/', authorize([1]), controller.create);
 router.put('/:id',  controller.update);
