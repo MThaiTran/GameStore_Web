@@ -80,7 +80,7 @@
                     cardExp: expiration,
                     orderDate: new Date(),
                     status: 'Successful',
-                    games: [] 
+                    games: <%- JSON.stringify(orderItems.map(item => item.ID)) %>
                 })
             });
 

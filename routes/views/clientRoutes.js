@@ -180,13 +180,14 @@ router.get('/payment/:orderId', authenticate, async (req,res) => {
       });
     const itemFK = itemResponse.data;
 
-    console.log(itemFK);
+    console.log("ItemFK:******************", itemFK, "fromOrderID:******************", orderId);
     let orderItems = [];
     for (let i = 0; i < itemFK.length; i++) {
       const gameResponse = await axios.get(`http://localhost:5000/api/game/${itemFK[i].GameID}`);
       orderItems[i] = gameResponse.data;
     }
 
+    console.log("OrderItems:******************", orderItems);
     const userResponse = await axios.get(
       `http://localhost:5000/api/user/${order.UserID}`,{
         headers: {

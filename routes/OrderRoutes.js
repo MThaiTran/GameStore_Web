@@ -16,7 +16,7 @@ router.post('/from-user/:userId', controller.createFromUser);
 
 // ✅ New routes to manage order items
 router.get('/:orderId/items', controller.getOrderItems);
-router.post('/:orderId/items', authorize([1]), controller.addOrderItem);
+router.post('/:orderId/items', controller.addOrderItem);
 router.delete('/:orderId/items/:gameId', authorize([1]), controller.removeOrderItem);
 
 module.exports = router;

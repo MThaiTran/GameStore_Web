@@ -159,9 +159,16 @@ async function createOrderFromCart(cartId) {
     .query('SELECT GameID FROM [CartItem] WHERE CartID = @CartID');
 
   const gameItems = itemsResult.recordset;
-
+  console.log("gameItems", gameItems);
+  
   for (const item of gameItems) {
-    await addOrderDetail(orderId, item.GameID);
+    try {
+      await addOrderDetail(orderId, item.GameID);
+      console.log("Successfully added item with GameID:", item.GameID, "to OrderID:", orderId);
+    } catch (error) {
+      console.error("Error adding item to OrderDetail:", error);
+      throw error;
+    }
   }
 
   return orderId;
