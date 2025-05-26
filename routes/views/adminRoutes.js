@@ -45,13 +45,33 @@ router.get('/edit-user/:userId', authenticate, authorize([1]), async (req, res) 
 
 router.get('/games', authenticate, authorize([1]), async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:5000/api/game?page=1&limit=15');
+        const page = parseInt(req.query.page) || 1;
+        const limit = 10;
+        const response = await axios.get(
+          `http://localhost:5000/api/game?page=${page}&limit=${limit}`,{
+            headers: {
+              Authorization: `Bearer ${req.session.token}`
+            }
+          });
         const games = response.data.data; // lấy phần `data` từ JSON trả về
+        const total = response.data.totalRecords || 0;
+        const totalPages = response.data.totalPages || 1;
+
+        console.log('API Response Games:', response.data); // Debug log
+        console.log('Pagination Info Games:', { page, total, totalPages }); // Debug log
         
-        res.render(prefix + '/Games', {games});
+        res.render(prefix + '/Games', {
+          games,
+          currentPage: page,
+          totalPages: totalPages || 1
+        });
       } catch (error) {
-        console.error('Lỗi khi gọi API:', error.message);
-      //   res.render('HomePage', { games: [] });
+        console.error('Lỗi khi gọi API Games:', error.message);
+        res.render(prefix + '/Games', {
+          games: [],
+          currentPage: 1,
+          totalPages: 1
+        });
       }
 });
 
@@ -120,19 +140,35 @@ router.get('/edit-genre/:genreId', authenticate, authorize([1]), async (req, res
 
 router.get('/orders', authenticate, authorize([1]), async (req, res) => {
   try {
+      const page = parseInt(req.query.page) || 1;
+      const limit = 10;
       const response = await axios.get(
-        'http://localhost:5000/api/order?page=1&limit=20',{
+        `http://localhost:5000/api/order?page=${page}&limit=${limit}`,{
           headers: {
             Authorization: `Bearer ${req.session.token}`
           }
         });
-      const orders = response.data.data; // lấy phần `data` từ JSON trả về
       
-     
-      res.render(prefix + '/Orders', {orders});
+      console.log('API Response:', response.data); // Debug log
+      
+      const orders = response.data.data;
+      const total = response.data.totalRecords || 0;
+      const totalPages = response.data.totalPages || 1;
+      
+      console.log('Pagination Info:', { page, total, totalPages }); // Debug log
+      
+      res.render(prefix + '/Orders', {
+        orders,
+        currentPage: page,
+        totalPages: totalPages || 1 // Đảm bảo luôn có ít nhất 1 trang
+      });
     } catch (error) {
       console.error('Lỗi khi gọi API:', error.message);
-    //   res.render('HomePage', { games: [] });
+      res.render(prefix + '/Orders', {
+        orders: [],
+        currentPage: 1,
+        totalPages: 1
+      });
     }
 });
 

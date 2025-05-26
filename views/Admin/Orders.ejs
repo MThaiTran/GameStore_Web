@@ -44,6 +44,22 @@
                     </tr>
                     <% } %>
                 </table>
+                <div class="pagination" style="text-align: center; margin-top: 20px; display: flex; justify-content: center; gap: 10px;">
+                    <% if (currentPage > 1) { %>
+                        <a href="/admin/orders?page=<%= currentPage - 1 %>" class="signinbutton" style="min-width: 100px;">Previous</a>
+                    <% } %>
+                    
+                    <% for(let i = 1; i <= totalPages; i++) { %>
+                        <a href="/admin/orders?page=<%= i %>" class="signinbutton" 
+                           style="min-width: 40px; <%= currentPage === i ? 'background-color: #4CAF50; color: white;' : '' %>">
+                            <%= i %>
+                        </a>
+                    <% } %>
+
+                    <% if (currentPage < totalPages) { %>
+                        <a href="/admin/orders?page=<%= currentPage + 1 %>" class="signinbutton" style="min-width: 100px;">Next</a>
+                    <% } %>
+                </div>
         </div>
     </div>
 
