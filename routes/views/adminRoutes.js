@@ -152,6 +152,11 @@ router.get('/orders', authenticate, authorize([1]), async (req, res) => {
       console.log('API Response:', response.data); // Debug log
       
       const orders = response.data.data;
+      // Đảo ngược mảng orders theo yêu cầu
+      if (orders) {
+          orders.reverse();
+      }
+      
       const total = response.data.totalRecords || 0;
       const totalPages = response.data.totalPages || 1;
       

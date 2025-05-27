@@ -32,13 +32,24 @@ router.get('/signin', (req, res) => {
 // Browse Page (for listing products/games)
 router.get('/games',async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:5000/api/game?page=1&limit=15');
+        const page = parseInt(req.query.page) || 1;
+        const limit = 15;
+        const response = await axios.get(`http://localhost:5000/api/game?page=${page}&limit=${limit}`);
         const games = response.data.data; // lấy phần `data` từ JSON trả về
-    
-        res.render(prefix + '/Browse', {games});
+        const total = response.data.totalRecords || 0; // Lấy tổng số records từ API
+        const totalPages = response.data.totalPages || 1; // Lấy tổng số trang từ API
+
+        console.log('Games API Response:', response.data); // Debug log
+        console.log('Games Pagination Info:', { page, total, totalPages }); // Debug log
+
+        res.render(prefix + '/Browse', {
+          games,
+          currentPage: page,
+          totalPages: totalPages || 1
+        });
       } catch (error) {
-        console.error('Lỗi khi gọi API:', error.message);
-      //   res.render('HomePage', { games: [] });
+        console.error('Lỗi khi gọi API Games:', error.message);
+        res.render(prefix + '/Browse', { games: [], currentPage: 1, totalPages: 1 });
       }
 });
 
